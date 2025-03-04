@@ -60,7 +60,19 @@ class Program
     private async Task ReadyAsync()
     {
         Console.WriteLine($"✅ Logged in as {_client.CurrentUser.Username}");
+
+        try
+        {
+            using var dbContext = new TicketDbContext(Config.TicketsDb.ConnectionString, Config.TicketsDb.Provider);
+            dbContext.Database.EnsureCreated();
+            Console.WriteLine("✅ Successfully connected to PostgreSQL database.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Database connection failed: {ex.Message}");
+        }
     }
+
 
     private async Task RegisterCommandsAsync()
     {
@@ -79,10 +91,19 @@ class Program
         await _commands.ExecuteCommandAsync(context, _services);
     }
 
-    // Updated BotConfig class to include GameServers
     public class BotConfig
     {
         public string Token { get; set; }
         public Dictionary<string, string[]> GameServers { get; set; }
+
+        public TicketsDbConfig TicketsDb { get; set; }
     }
+
+    public class TicketsDbConfig
+    {
+        public string ConnectionString { get; set; }
+        public string Provider { get; set; }
+    }
+
+
 }
