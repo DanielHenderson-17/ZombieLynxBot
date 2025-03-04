@@ -88,7 +88,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
         foreach (var server in servers)
         {
             // Encode category and game into the value
-            selectMenu.AddOption(server, $"{category}|{game}|{server}");
+            selectMenu.AddOption(server, $"{category}|{game}|{server.Replace("|", "~~")}");
             Console.WriteLine($"✅ Debug: Added Server - {server}");
         }
 
@@ -121,7 +121,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
 
             string category = parts[0];
             string game = parts[1];
-            string server = parts[2];
+            string server = parts[2].Replace("~~", "|");
 
             // Convert SE → Ark:SE, SA → Ark:SA for display in the modal
             string displayGame = game switch
