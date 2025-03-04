@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -11,7 +12,10 @@ class Program
     private DiscordSocketClient _client;
     private InteractionService _commands;
     private IServiceProvider _services;
-    private string _token;
+    private BotConfig _config;
+
+    // Make the config accessible globally
+    public static BotConfig Config { get; private set; } = new BotConfig();
 
     static async Task Main(string[] args) => await new Program().RunBotAsync();
 
@@ -30,7 +34,7 @@ class Program
         _client.Ready += ReadyAsync;
         _client.InteractionCreated += HandleInteractionAsync;
 
-        await _client.LoginAsync(TokenType.Bot, _token);
+        await _client.LoginAsync(TokenType.Bot, _config.Token);
         await _client.StartAsync();
 
         // Register commands after bot is ready
@@ -42,8 +46,10 @@ class Program
     private void LoadConfig()
     {
         var configText = File.ReadAllText("botconfig.json");
-        var configJson = JsonSerializer.Deserialize<BotConfig>(configText);
-        _token = configJson.Token;
+        _config = JsonSerializer.Deserialize<BotConfig>(configText);
+
+        // Set the global Config property
+        Config = _config;
     }
 
     private async Task LogAsync(LogMessage log)
@@ -73,8 +79,10 @@ class Program
         await _commands.ExecuteCommandAsync(context, _services);
     }
 
-    private class BotConfig
+    // Updated BotConfig class to include GameServers
+    public class BotConfig
     {
         public string Token { get; set; }
+        public Dictionary<string, string[]> GameServers { get; set; }
     }
 }

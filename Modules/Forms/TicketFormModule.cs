@@ -1,7 +1,9 @@
+// TicketFormModule.cs
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
 using Discord.Interactions;
+using Discord.WebSocket;
 
 public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
 {
@@ -21,7 +23,6 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
             .WithSelectMenu(selectMenu)
             .Build();
 
-        // ✅ Send a new message instead of modifying the button message
         await RespondAsync("Please select a category:", components: component, ephemeral: true);
     }
 
@@ -31,7 +32,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
     {
         await DeferAsync(ephemeral: true);
 
-        string category = selectedValue; // ✅ Store only the category
+        string category = selectedValue;
 
         var selectMenu = new SelectMenuBuilder()
             .WithPlaceholder("Select a Game")
@@ -55,55 +56,35 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
         });
     }
 
-
     // Step 3: Show Server Selection after choosing a Game
     [ComponentInteraction("select_ticket_game")]
     public async Task ShowServerSelection(string selectedValue)
     {
         await DeferAsync(ephemeral: true);
 
-        Console.WriteLine($"🔍 Debug: Selected Game - {selectedValue}");
-
-        string game = selectedValue; // ✅ Use the actual selected game
-        string category = "Unknown"; // ✅ Category is not stored in this step
-
-        var servers = game switch
+        // Convert SE → Ark:SE, SA → Ark:SA but keep original keys for server lookup
+        string displayGame = selectedValue switch
         {
-            "Discord Issue" => new[] { "Zombie Lynx Gaming Discord" },
-            "SE" => new[]
-            {
-            "ZombieLynx-TheIsland-3X-PVPClusterORP",
-            "ZombieLynx-Extinction-3X-PVPClusterORP",
-            "ZombieLynx-Aberration-3X-PVPClusterORP",
-            "ZombieLynx-Gen2-3X-PVPClusterORP",
-            "ZombieLynx-Fjordur-3X-PVPClusterORP",
-            "ZombieLynx-CrystalIsles-3X-PVPClusterORP",
-            "ZombieLynx-ScorchedEarth-3X-PVPClusterORP",
-            "ZombieLynx-LostIsland-3X-PVPClusterORP",
-            "ZombieLynx-Gen1-3X-PVPClusterORP",
-            "ZombieLynx-ThCenter-3X-PVPClusterORP",
-            "ZombieLynx-Ragnarok-3X-PVPClusterORP",
-            "ZombieLynx-Valguero-3X-PVPClusterORP"
-        },
-            "SA" => new[]
-            {
-            "ZombieLynx-TheIsland-3X-PVP",
-            "ZombieLynx-ScorchedEarth-3X-PVPORP",
-            "ZombieLynx-TheCenter-3X-PVP",
-            "ZombieLynx-Aberration-3X-PVPORP"
-        },
-            "Eco" => new[] { "Zombie Lynx Gaming | Medium Collab | Beginner Friendly" },
-            "Minecraft" => new[] { "Zombie Lynx Gaming Minecraft" },
-            "Empyrion" => new[] { "Zombie Lynx Reforged Eden PVP" },
-            "Palworld" => new[] { "Zombie Lynx Gaming Palworld 3X" },
-            _ => new[] { "Other" }
+            "SE" => "Ark:SE",
+            "SA" => "Ark:SA",
+            _ => selectedValue
         };
 
+        string game = selectedValue; // Keep original for server lookup
+
+        string category = (Context.Interaction as SocketMessageComponent)?.Data.CustomId.Split(':').ElementAtOrDefault(1) ?? "Unknown";
+
+        // Get servers from the BotConfig
+        var servers = Program.Config.GameServers.TryGetValue(game, out var serverList) ? serverList : new[] { "Other" };
+
         Console.WriteLine($"🔍 Debug: Server List Count for {game} - {servers.Length}");
+        Console.WriteLine($"🔍 Debug: Selected Game - {selectedValue} (Stored as {game})");
+        Console.WriteLine($"🔍 Debug: Display Name - {displayGame}");
+        Console.WriteLine($"🔍 Debug: Available Servers for {game}: {string.Join(", ", servers)}");
 
         var selectMenu = new SelectMenuBuilder()
-            .WithPlaceholder($"Select a Server for {game}")
-            .WithCustomId("select_ticket_server"); // ✅ Fixed CustomId
+            .WithPlaceholder($"Select a Server for {displayGame}")
+            .WithCustomId($"select_ticket_server:{category}:{game}");
 
         foreach (var server in servers)
         {
@@ -117,7 +98,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
 
         await ModifyOriginalResponseAsync(msg =>
         {
-            msg.Content = $"Please select a server for {game}:";
+            msg.Content = $"Please select a server for {displayGame}:";
             msg.Components = component;
         });
     }
@@ -126,20 +107,49 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
     [ComponentInteraction("select_ticket_server:*:*")]
     public async Task OpenTicketFormFinal(string selectedValue, string customId)
     {
-        string server = selectedValue;
-        var parts = customId.Split(':');
-        string category = parts[1];
-        string game = parts[2];
+        try
+        {
+            Console.WriteLine($"🔍 Debug: Received Interaction - select_ticket_server");
+            Console.WriteLine($"🔍 Debug: CustomId - {customId}");
+            Console.WriteLine($"🔍 Debug: Selected Server - {selectedValue}");
 
-        var modal = new ModalBuilder()
-            .WithTitle("Create a Ticket")
-            .WithCustomId("ticket_submission")
-            .AddTextInput("Subject", "subject", placeholder: "Enter a brief subject", minLength: 5, maxLength: 100, required: true)
-            .AddTextInput("Category", "category", value: category, required: true) // Pre-filled
-            .AddTextInput("Game", "game", value: game, required: true) // Pre-filled
-            .AddTextInput("Server", "server", value: server, required: true) // Pre-filled
-            .AddTextInput("Description", "description", TextInputStyle.Paragraph, "Describe your issue in detail", required: true);
+            var parts = customId.Split(':');
+            if (parts.Length < 3)
+            {
+                Console.WriteLine($"❌ Error: Invalid customId format - {customId}");
+                await RespondAsync("❌ An error occurred while processing your request. Please try again.", ephemeral: true);
+                return;
+            }
 
-        await RespondWithModalAsync(modal.Build());
+            string category = parts[1];
+            string game = parts[2];
+
+            Console.WriteLine($"🔍 Debug: Split Parts Length - {parts.Length}");
+            Console.WriteLine($"🔍 Debug: Category - {category}");
+            Console.WriteLine($"🔍 Debug: Game - {game}");
+
+            var modal = new ModalBuilder()
+                .WithTitle("Create a Ticket")
+                .WithCustomId("ticket_submission")
+                .AddTextInput("Subject", "subject", placeholder: "Enter a brief subject", minLength: 5, maxLength: 100, required: true)
+                .AddTextInput("Category", "category", value: category, required: true) // Pre-filled
+                .AddTextInput("Game", "game", value: game, required: true) // Pre-filled
+                .AddTextInput("Server", "server", value: selectedValue, required: true) // Pre-filled
+                .AddTextInput("Description", "description", TextInputStyle.Paragraph, "Describe your issue in detail", required: true);
+
+            Console.WriteLine("🔍 Debug: Constructed Modal Data:");
+            Console.WriteLine($"🔍 Subject: (User Input)");
+            Console.WriteLine($"🔍 Category: {category}");
+            Console.WriteLine($"🔍 Game: {game}");
+            Console.WriteLine($"🔍 Server: {selectedValue}");
+            Console.WriteLine("🔍 Awaiting user input in modal...");
+
+            await RespondWithModalAsync(modal.Build());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Exception in OpenTicketFormFinal: {ex}");
+            await RespondAsync("❌ An unexpected error occurred. Please try again later.", ephemeral: true);
+        }
     }
 }
