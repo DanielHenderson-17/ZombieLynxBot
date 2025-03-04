@@ -139,9 +139,9 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
                 .WithTitle("Create a Ticket")
                 .WithCustomId("ticket_submission")
                 .AddTextInput("Subject", "subject", placeholder: "Enter a brief subject", minLength: 5, maxLength: 100, required: true)
-                .AddTextInput("Category", "category", value: category, required: true) // Pre-filled
-                .AddTextInput("Game", "game", value: displayGame, required: true) // Use displayGame instead of game
-                .AddTextInput("Server", "server", value: server, required: true) // Pre-filled
+                .AddTextInput("Category", "category", value: category, required: true)
+                .AddTextInput("Game", "game", value: displayGame, required: true)
+                .AddTextInput("Server", "server", value: server, required: true)
                 .AddTextInput("Description", "description", TextInputStyle.Paragraph, "Describe your issue in detail", required: true);
 
             await RespondWithModalAsync(modal.Build());
