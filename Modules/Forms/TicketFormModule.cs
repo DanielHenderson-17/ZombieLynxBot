@@ -37,13 +37,13 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
         var selectMenu = new SelectMenuBuilder()
             .WithPlaceholder("Select a Game")
             .WithCustomId("select_ticket_game")
-            .AddOption("Discord Issue", "Discord Issue")
-            .AddOption("Ark:SE", "SE")
-            .AddOption("Ark:SA", "SA")
-            .AddOption("Eco", "Eco")
-            .AddOption("Minecraft", "Minecraft")
-            .AddOption("Empyrion", "Empyrion")
-            .AddOption("Palworld", "Palworld");
+            .AddOption("Discord Issue", $"Discord Issue|{category}")
+            .AddOption("Ark:SE", $"SE|{category}")
+            .AddOption("Ark:SA", $"SA|{category}")
+            .AddOption("Eco", $"Eco|{category}")
+            .AddOption("Minecraft", $"Minecraft|{category}")
+            .AddOption("Empyrion", $"Empyrion|{category}")
+            .AddOption("Palworld", $"Palworld|{category}");
 
         var component = new ComponentBuilder()
             .WithSelectMenu(selectMenu)
@@ -62,39 +62,37 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
     {
         await DeferAsync(ephemeral: true);
 
+        // Parse the selected value to get game and category
+        var parts = selectedValue.Split('|');
+        string game = parts[0];
+        string category = parts.Length > 1 ? parts[1] : "Unknown";
+
         // Convert SE → Ark:SE, SA → Ark:SA but keep original keys for server lookup
-        string displayGame = selectedValue switch
+        string displayGame = game switch
         {
             "SE" => "Ark:SE",
             "SA" => "Ark:SA",
-            _ => selectedValue
+            _ => game
         };
 
-        string game = selectedValue; // Keep original for server lookup
+        Console.WriteLine($"🔍 Debug: Category - {category}");
+        Console.WriteLine($"🔍 Debug: Selected Game - {game}");
 
-        string category = (Context.Interaction as SocketMessageComponent)?.Data.CustomId.Split(':').ElementAtOrDefault(1) ?? "Unknown";
-
-        // Get servers from the BotConfig
+        // Get servers from BotConfig
         var servers = Program.Config.GameServers.TryGetValue(game, out var serverList) ? serverList : new[] { "Other" };
-
-        Console.WriteLine($"🔍 Debug: Server List Count for {game} - {servers.Length}");
-        Console.WriteLine($"🔍 Debug: Selected Game - {selectedValue} (Stored as {game})");
-        Console.WriteLine($"🔍 Debug: Display Name - {displayGame}");
-        Console.WriteLine($"🔍 Debug: Available Servers for {game}: {string.Join(", ", servers)}");
 
         var selectMenu = new SelectMenuBuilder()
             .WithPlaceholder($"Select a Server for {displayGame}")
-            .WithCustomId($"select_ticket_server:{category}:{game}");
+            .WithCustomId("select_ticket_server");
 
         foreach (var server in servers)
         {
-            selectMenu.AddOption(server, server);
+            // Encode category and game into the value
+            selectMenu.AddOption(server, $"{category}|{game}|{server}");
             Console.WriteLine($"✅ Debug: Added Server - {server}");
         }
 
-        var component = new ComponentBuilder()
-            .WithSelectMenu(selectMenu)
-            .Build();
+        var component = new ComponentBuilder().WithSelectMenu(selectMenu).Build();
 
         await ModifyOriginalResponseAsync(msg =>
         {
@@ -104,29 +102,30 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
     }
 
     // Step 4: Show Final Modal after choosing a Server
-    [ComponentInteraction("select_ticket_server:*:*")]
-    public async Task OpenTicketFormFinal(string selectedValue, string customId)
+    [ComponentInteraction("select_ticket_server")]
+    public async Task OpenTicketFormFinal(string selectedValue)
     {
         try
         {
             Console.WriteLine($"🔍 Debug: Received Interaction - select_ticket_server");
-            Console.WriteLine($"🔍 Debug: CustomId - {customId}");
-            Console.WriteLine($"🔍 Debug: Selected Server - {selectedValue}");
+            Console.WriteLine($"🔍 Debug: Selected Value - {selectedValue}");
 
-            var parts = customId.Split(':');
+            // Parse the encoded value
+            var parts = selectedValue.Split('|');
             if (parts.Length < 3)
             {
-                Console.WriteLine($"❌ Error: Invalid customId format - {customId}");
+                Console.WriteLine($"❌ Error: Invalid value format - {selectedValue}");
                 await RespondAsync("❌ An error occurred while processing your request. Please try again.", ephemeral: true);
                 return;
             }
 
-            string category = parts[1];
-            string game = parts[2];
+            string category = parts[0];
+            string game = parts[1];
+            string server = parts[2];
 
-            Console.WriteLine($"🔍 Debug: Split Parts Length - {parts.Length}");
-            Console.WriteLine($"🔍 Debug: Category - {category}");
-            Console.WriteLine($"🔍 Debug: Game - {game}");
+            Console.WriteLine($"🔍 Debug: Parsed Category - {category}");
+            Console.WriteLine($"🔍 Debug: Parsed Game - {game}");
+            Console.WriteLine($"🔍 Debug: Parsed Server - {server}");
 
             var modal = new ModalBuilder()
                 .WithTitle("Create a Ticket")
@@ -134,15 +133,8 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
                 .AddTextInput("Subject", "subject", placeholder: "Enter a brief subject", minLength: 5, maxLength: 100, required: true)
                 .AddTextInput("Category", "category", value: category, required: true) // Pre-filled
                 .AddTextInput("Game", "game", value: game, required: true) // Pre-filled
-                .AddTextInput("Server", "server", value: selectedValue, required: true) // Pre-filled
+                .AddTextInput("Server", "server", value: server, required: true) // Pre-filled
                 .AddTextInput("Description", "description", TextInputStyle.Paragraph, "Describe your issue in detail", required: true);
-
-            Console.WriteLine("🔍 Debug: Constructed Modal Data:");
-            Console.WriteLine($"🔍 Subject: (User Input)");
-            Console.WriteLine($"🔍 Category: {category}");
-            Console.WriteLine($"🔍 Game: {game}");
-            Console.WriteLine($"🔍 Server: {selectedValue}");
-            Console.WriteLine("🔍 Awaiting user input in modal...");
 
             await RespondWithModalAsync(modal.Build());
         }
