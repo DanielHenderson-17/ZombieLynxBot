@@ -123,6 +123,14 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
             string game = parts[1];
             string server = parts[2];
 
+            // Convert SE → Ark:SE, SA → Ark:SA for display in the modal
+            string displayGame = game switch
+            {
+                "SE" => "Ark:SE",
+                "SA" => "Ark:SA",
+                _ => game
+            };
+
             Console.WriteLine($"🔍 Debug: Parsed Category - {category}");
             Console.WriteLine($"🔍 Debug: Parsed Game - {game}");
             Console.WriteLine($"🔍 Debug: Parsed Server - {server}");
@@ -132,7 +140,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
                 .WithCustomId("ticket_submission")
                 .AddTextInput("Subject", "subject", placeholder: "Enter a brief subject", minLength: 5, maxLength: 100, required: true)
                 .AddTextInput("Category", "category", value: category, required: true) // Pre-filled
-                .AddTextInput("Game", "game", value: game, required: true) // Pre-filled
+                .AddTextInput("Game", "game", value: displayGame, required: true) // Use displayGame instead of game
                 .AddTextInput("Server", "server", value: server, required: true) // Pre-filled
                 .AddTextInput("Description", "description", TextInputStyle.Paragraph, "Describe your issue in detail", required: true);
 
