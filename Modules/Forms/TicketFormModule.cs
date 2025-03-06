@@ -145,6 +145,16 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
                 .AddTextInput("Description", "description", TextInputStyle.Paragraph, "Describe your issue in detail", required: true);
 
             await RespondWithModalAsync(modal.Build());
+
+            await Task.Delay(500);
+
+            await ModifyOriginalResponseAsync(msg =>
+            {
+                msg.Content = "✅ Thank you! Please fill out the form to complete your ticket.";
+                msg.Components = new ComponentBuilder().Build();
+            });
+
+
         }
         catch (Exception ex)
         {

@@ -118,4 +118,15 @@ public class TicketHandler
             }
         }
     }
+    public async Task<bool> CloseTicketAsync(int ticketId)
+    {
+        var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+        if (ticket == null) return false;
+
+        ticket.Status = "Closed";
+        ticket.UpdatedAt = DateTime.UtcNow;
+
+        await _dbContext.SaveChangesAsync();
+        return true;
+    }
 }
