@@ -109,11 +109,22 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
 
         // ✅ Send a message in the new channel
         var embed = new EmbedBuilder()
-            .WithTitle($"Ticket #{newTicket.Id} - {newTicket.Subject}")
-            .WithDescription($"Category: **{newTicket.Category}**\nGame: **{newTicket.Game}**\nServer: **{newTicket.Server}**\n\n📜 **Description:** {newTicket.Description}")
-            .WithColor(Color.Orange)
-            .WithFooter($"Ticket created by {Context.User.Username}")
-            .WithCurrentTimestamp();
+         .WithTitle($"🎫 Ticket #{newTicket.Id} - {char.ToUpper(newTicket.Subject[0])}{newTicket.Subject.Substring(1)}")
+         .WithDescription("--------------------------------------\n")
+         .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
+         .AddField("📂 **Category**", $"{newTicket.Category}", inline: false)
+         .AddField("🎮 **Game**", $"{newTicket.Game}", inline: false)
+         .AddField("🗺️ **Server**", $"{newTicket.Server}", inline: false)
+         .AddField("\u200B", "\u200B", inline: false)
+         .AddField("📜 **Description**", $"```{char.ToUpper(newTicket.Description[0])}{newTicket.Description.Substring(1)}```", inline: false)
+         .WithColor(Color.Green)
+         .WithFooter(footer =>
+            {
+                footer.Text = $"Ticket created by {Context.User.Username}";
+                footer.IconUrl = "https://i.imgur.com/dnlokbX.png";
+            })
+         .WithCurrentTimestamp();
+
 
         // ✅ Create a button to close the ticket
         var closeButton = new ComponentBuilder()
