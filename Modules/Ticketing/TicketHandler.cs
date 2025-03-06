@@ -26,10 +26,31 @@ public class TicketHandler
 
             if (member == null)
             {
-                Console.WriteLine($"❌ No ZLGMember found for Discord ID {discordUserId}");
-                return null; // If no profile, we can't create a ticket
+                Console.WriteLine($"❌ No ZLGMember found for Discord ID {discordUserId}. Creating a ticket WITHOUT user assignment.");
+
+                // ✅ Create a ticket with NO UserProfileId
+                var ticketWithoutUser = new Ticket
+                {
+                    Subject = subject,
+                    Category = category,
+                    Game = game,
+                    Server = server,
+                    Description = description,
+                    Status = "Open",
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = DateTime.UtcNow,
+                    UserProfileId = null, // ❌ No UserProfileId assigned
+                    DiscordUserId = discordUserId // ✅ Save the Discord ID for reference
+                };
+
+                _dbContext.Tickets.Add(ticketWithoutUser);
+                await _dbContext.SaveChangesAsync();
+
+                Console.WriteLine($"✅ Ticket {ticketWithoutUser.Id} saved (NO user linked).");
+                return ticketWithoutUser;
             }
 
+            // ✅ If the user exists, proceed normally
             var newTicket = new Ticket
             {
                 Subject = subject,
@@ -40,7 +61,8 @@ public class TicketHandler
                 Status = "Open",
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow,
-                UserProfileId = member.UserProfileId // ✅ Assign UserProfileId from ZLGMember
+                UserProfileId = member.UserProfileId,
+                DiscordUserId = discordUserId
             };
 
             _dbContext.Tickets.Add(newTicket);
@@ -68,6 +90,32 @@ public class TicketHandler
                 Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
             }
             throw;
+        }
+    }
+    public async Task UpdateTicketWithChannelId(int ticketId, ulong channelId)
+    {
+        try
+        {
+            var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+            if (ticket == null)
+            {
+                Console.WriteLine($"❌ Ticket with ID {ticketId} not found.");
+                return;
+            }
+
+            ticket.DiscordChannelId = channelId;
+            ticket.UpdatedAt = DateTime.UtcNow;
+
+            await _dbContext.SaveChangesAsync();
+            Console.WriteLine($"✅ Ticket {ticketId} updated with Discord Channel ID: {channelId}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"❌ Error updating ticket: {ex.Message}");
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
+            }
         }
     }
 }

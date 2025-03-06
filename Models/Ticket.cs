@@ -30,12 +30,11 @@ public class Ticket
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     public ulong? DiscordChannelId { get; set; }
+    public ulong? DiscordUserId { get; set; }
 
     public ICollection<Message> Messages { get; set; } = new List<Message>();
 
-    // ✅ Add UserProfileId
-    [Required]
-    public int UserProfileId { get; set; }
+    public int? UserProfileId { get; set; }
 
     [ForeignKey("UserProfileId")]
     public UserProfile UserProfile { get; set; }

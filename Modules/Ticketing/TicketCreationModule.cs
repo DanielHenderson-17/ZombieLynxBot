@@ -45,7 +45,7 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
 
         Console.WriteLine($"🎫 Creating ticket for {Context.User.Username}...");
 
-        // Save the ticket in the database
+        // ✅ Save the ticket in the database
         var newTicket = await _ticketHandler.CreateTicketAsync(
             modal.Subject,
             modal.Category,
@@ -58,6 +58,65 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
 
         Console.WriteLine($"✅ Ticket {newTicket.Id} created in DB.");
 
-        // Next: Create the Discord channel
+        // ✅ Get the Guild & Config Settings
+        var guild = (Context.Client as DiscordSocketClient)?.GetGuild(Context.Guild.Id);
+        if (guild == null)
+        {
+            Console.WriteLine("❌ Error: Guild not found.");
+            await FollowupAsync("An error occurred while creating your ticket. Please contact an admin.", ephemeral: true);
+            return;
+        }
+
+        var supportCategoryId = Convert.ToUInt64(Program.Config.SupportCategory["🔥 General 🔥"]);
+        var supportRoleId = Convert.ToUInt64(Program.Config.SupportRole["Help!"]);
+        var helpRoleMention = $"<@&{supportRoleId}>";
+
+        var ticketMessage = $"An admin will be with you to help with your request shortly.\n" +
+                            $"Please tell us what your player name and tribe name are.\n" +
+                            $"{helpRoleMention}";
+
+        var categoryChannel = guild.GetCategoryChannel(supportCategoryId);
+        if (categoryChannel == null)
+        {
+            Console.WriteLine("❌ Error: Support category not found.");
+            await FollowupAsync("An error occurred while creating your ticket. Please contact an admin.", ephemeral: true);
+            return;
+        }
+
+        // ✅ Create the Ticket Channel
+        string channelName = $"ticket-{newTicket.Id}";
+        var ticketChannel = await guild.CreateTextChannelAsync(channelName, properties =>
+        {
+            properties.CategoryId = supportCategoryId;
+            properties.PermissionOverwrites = new System.Collections.Generic.List<Overwrite>
+            {
+                // ❌ Deny @everyone from seeing the ticket
+                new Overwrite(guild.EveryoneRole.Id, PermissionTarget.Role, new OverwritePermissions(viewChannel: PermValue.Deny)),
+
+                // ✅ Allow the ticket creator to view and send messages
+                new Overwrite(Context.User.Id, PermissionTarget.User, new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Allow)),
+
+                // ✅ Allow the Help! role to see and send messages
+                new Overwrite(supportRoleId, PermissionTarget.Role, new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Allow))
+            };
+        });
+
+        Console.WriteLine($"✅ Created channel {ticketChannel.Name} ({ticketChannel.Id})");
+
+        // ✅ Update the Ticket in Database
+        await _ticketHandler.UpdateTicketWithChannelId(newTicket.Id, ticketChannel.Id);
+
+
+        // ✅ Send a message in the new channel
+        var embed = new EmbedBuilder()
+            .WithTitle($"Ticket #{newTicket.Id} - {newTicket.Subject}")
+            .WithDescription($"Category: **{newTicket.Category}**\nGame: **{newTicket.Game}**\nServer: **{newTicket.Server}**\n\n📜 **Description:** {newTicket.Description}")
+            .WithColor(Color.Orange)
+            .WithFooter($"Ticket created by {Context.User.Username}")
+            .WithCurrentTimestamp();
+
+        await ticketChannel.SendMessageAsync(embed: embed.Build());
+        await ticketChannel.SendMessageAsync(ticketMessage);
+
     }
 }

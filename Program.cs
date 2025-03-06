@@ -97,6 +97,9 @@ class Program
         public Dictionary<string, string[]> GameServers { get; set; }
 
         public TicketsDbConfig TicketsDb { get; set; }
+        public string SupportChannelId { get; set; }  // ✅ Add this
+        public Dictionary<string, string> SupportRole { get; set; }  // ✅ Add this
+        public Dictionary<string, string> SupportCategory { get; set; }  // ✅ Add this
     }
 
     public class TicketsDbConfig

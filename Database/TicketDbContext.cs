@@ -27,8 +27,17 @@ public class TicketDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // ✅ Explicitly tell EF Core that these tables already exist
+        modelBuilder.Entity<Ticket>().ToTable("Tickets");
+        modelBuilder.Entity<Message>().ToTable("Messages");
+        modelBuilder.Entity<ZLGMember>().ToTable("ZLGMembers");
+        modelBuilder.Entity<UserProfile>().ToTable("UserProfiles");
+        modelBuilder.Entity<UserTicket>().ToTable("UserTickets");
+
+        // ✅ Define composite primary key for UserTickets
         modelBuilder.Entity<UserTicket>()
             .HasKey(ut => new { ut.UserProfileId, ut.TicketId });
     }
+
 }
 
