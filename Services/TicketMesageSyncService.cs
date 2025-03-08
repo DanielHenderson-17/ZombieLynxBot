@@ -48,7 +48,10 @@ public class TicketMessageSyncService
 
                     // Format the message
                     var embed = new EmbedBuilder()
-                        .WithAuthor(msg.DiscordUserName ?? "Unknown User", "https://i.imgur.com/dnlokbX.png")
+                        .WithAuthor(
+                            CapitalizeFirstLetter(msg.DiscordUserName) ?? "Unknown User",
+                            msg.DiscordUserId.HasValue ? GetDiscordAvatarUrl(msg.DiscordUserId.Value) : "https://i.imgur.com/dnlokbX.png"
+                        )
                         .WithDescription($"{msg.Content}")
                         .WithColor(Color.Blue)
                         .Build();
@@ -66,7 +69,24 @@ public class TicketMessageSyncService
                 Console.WriteLine($"❌ Error syncing messages: {ex.Message}");
             }
 
-            await Task.Delay(5000); // Check every 5 seconds
+            await Task.Delay(5000);
         }
+    }
+    private static string CapitalizeFirstLetter(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return input;
+
+        return char.ToUpper(input[0]) + input.Substring(1);
+    }
+    private string GetDiscordAvatarUrl(ulong discordUserId)
+    {
+        var user = _client.GetUser(discordUserId);
+        if (user != null && user.GetAvatarUrl() != null)
+        {
+            return user.GetAvatarUrl(ImageFormat.Png, 256);
+        }
+
+        return "https://i.imgur.com/dnlokbX.png";
     }
 }
