@@ -25,7 +25,9 @@ class Program
 
         _client = new DiscordSocketClient(new DiscordSocketConfig
         {
-            GatewayIntents = GatewayIntents.Guilds
+            GatewayIntents = GatewayIntents.Guilds |
+                             GatewayIntents.GuildMessages |
+                             GatewayIntents.MessageContent
         });
 
         _commands = new InteractionService(_client.Rest);
@@ -37,10 +39,16 @@ class Program
         await _client.LoginAsync(TokenType.Bot, _config.Token);
         await _client.StartAsync();
 
-        // Register commands after bot is ready
+        // ✅ Register commands after bot is ready
         _client.Ready += RegisterCommandsAsync;
 
-        await Task.Delay(-1);
+        // ✅ Initialize the Ticket Message Tracking Module
+        new TicketMessageModule(_client);
+
+        // ✅ Initialize the Ticket Message Syncing Service
+        new TicketMessageSyncService(_client); // 🔥 FIXED! Moved this above Task.Delay
+
+        await Task.Delay(-1); // ⬅️ This should always be at the very end.
     }
 
     private void LoadConfig()
@@ -71,6 +79,9 @@ class Program
         {
             Console.WriteLine($"❌ Database connection failed: {ex.Message}");
         }
+
+        // ✅ Initialize the Ticket Message Tracking Module
+        new TicketMessageModule(_client);
     }
 
 
