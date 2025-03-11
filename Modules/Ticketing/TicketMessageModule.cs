@@ -42,40 +42,57 @@ public class TicketMessageModule
             if (existingMessage != null)
                 return;
 
-            // Extract image URL if present
-            string? imgUrl = message.Attachments.FirstOrDefault()?.Url;
+            // Extract all image URLs from attachments
+            List<string> imgUrls = message.Attachments.Select(a => a.Url).ToList();
 
-            // 🔍 Find UserProfileId using Discord ID from ZLGMembers
-            var zlgMember = _dbContext.ZLGMembers.FirstOrDefault(m => m.DiscordId == message.Author.Id.ToString());
-            int? userProfileId = zlgMember?.UserProfileId;
+            // Debugging: Log extracted image URLs
+            Console.WriteLine($"🖼️ Extracted {imgUrls.Count} images: {string.Join(", ", imgUrls)}");
 
-            Console.WriteLine($"🔍 Found user: {message.Author.Username}, DiscordId: {message.Author.Id}, UserProfileId: {(userProfileId.HasValue ? userProfileId.Value.ToString() : "NULL")}");
+            // Get Discord Avatar URL
+            string discordAvatarUrl = message.Author.GetAvatarUrl(ImageFormat.Png, 256) ??
+                                      "https://cdn.discordapp.com/embed/avatars/0.png"; // Default avatar
 
-            // ✅ Create and save the message (DO NOT include UserProfileId if it's NULL)
+            // Find the user profile ID based on Discord ID
+            var userProfile = _dbContext.UserProfiles.FirstOrDefault(u => u.ZLGMember.DiscordId == message.Author.Id.ToString());
+
+            // If the user profile is not found, assign a default user profile (Admin or System User)
+            int? userProfileId = userProfile?.Id ?? 1; // Use a default ID (e.g., Admin)
+
             var newMessage = new Message
             {
                 DiscordMessageId = message.Id,
                 MessageGroupId = ticketId,
+                UserProfileId = userProfileId,  // 🔹 Ensure UserProfileId is set
                 DiscordUserId = message.Author.Id,
                 DiscordUserName = message.Author.Username,
+                DiscordImgUrl = discordAvatarUrl,
                 Content = message.Content,
                 CreatedAt = message.Timestamp.UtcDateTime,
-                ImgUrl = imgUrl,
+                ImgUrlsJson = System.Text.Json.JsonSerializer.Serialize(imgUrls),
                 SentToDiscord = true
             };
 
-            if (userProfileId.HasValue)
-            {
-                newMessage.UserProfileId = userProfileId.Value; // Only set if not NULL
-            }
 
+
+            // Debugging - Log message before saving
+            Console.WriteLine($"📝 Saving message: Content='{newMessage.Content}', Images={string.Join(", ", newMessage.ImgUrls)}");
+
+            // Save to database
             _dbContext.Messages.Add(newMessage);
             await _dbContext.SaveChangesAsync();
+            Console.WriteLine($"✅ Message logged successfully!");
+
             Console.WriteLine($"✅ Message logged successfully for Ticket #{ticketId}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"❌ Error logging message: {ex.Message}");
+
+            // ✅ Log inner exception details
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
+            }
         }
     }
 
