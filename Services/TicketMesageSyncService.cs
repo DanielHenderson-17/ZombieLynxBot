@@ -18,7 +18,9 @@ public class TicketMessageSyncService
         _dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider);
 
         Task.Run(() => SyncMessagesToDiscordAsync(_cancellationTokenSource.Token));
+        Task.Run(() => CheckForReopenedTickets(_cancellationTokenSource.Token)); // New Task
     }
+
 
     private async Task SyncMessagesToDiscordAsync(CancellationToken cancellationToken)
     {
@@ -89,4 +91,52 @@ public class TicketMessageSyncService
 
         return "https://i.imgur.com/dnlokbX.png";
     }
+    private async Task CheckForReopenedTickets(CancellationToken cancellationToken)
+    {
+        var channelManager = new TicketChannelManager(_client);
+
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            try
+            {
+                using (var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider))
+                {
+                    Console.WriteLine("🔍 Checking for reopened tickets...");
+
+                    var reopenedTickets = _dbContext.Tickets
+                        .Where(t => t.Status == "Open")
+                        .ToList();
+
+                    Console.WriteLine($"🔍 Checking for reopened tickets... Found {reopenedTickets.Count}");
+
+                    foreach (var ticket in reopenedTickets)
+                    {
+                        Console.WriteLine($"🔄 Processing reopening for Ticket #{ticket.Id}");
+                        await channelManager.HandleTicketReopen(ticket.Id);
+                        Console.WriteLine($"✅ Finished processing Ticket #{ticket.Id}");
+                    }
+
+
+                    if (reopenedTickets.Any())
+                    {
+                        Console.WriteLine($"✅ Found {reopenedTickets.Count} reopened tickets: " +
+                            string.Join(", ", reopenedTickets.Select(t => t.Id)));
+                    }
+                    else
+                    {
+                        Console.WriteLine("⚠️ No reopened tickets found.");
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error checking reopened tickets: {ex.Message}");
+            }
+
+            await Task.Delay(10000); // Check every 10 seconds
+        }
+    }
+
 }
