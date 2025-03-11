@@ -62,7 +62,7 @@ public class TicketMessageModule
             {
                 DiscordMessageId = message.Id,
                 MessageGroupId = ticketId,
-                UserProfileId = userProfileId,  // 🔹 Ensure UserProfileId is set
+                UserProfileId = userProfileId,
                 DiscordUserId = message.Author.Id,
                 DiscordUserName = message.Author.Username,
                 DiscordImgUrl = discordAvatarUrl,
