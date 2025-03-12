@@ -135,7 +135,7 @@ public class TicketChannelManager
             .WithColor(Color.Green)
             .WithFooter(footer =>
             {
-                footer.Text = $"Ticket reopened by {user?.Username ?? "Unknown"}";
+                footer.Text = $"Ticket reopened by {user?.Username ?? "Lynx Bot"}";
                 footer.IconUrl = userAvatar;
             })
             .WithCurrentTimestamp();
@@ -161,36 +161,55 @@ public class TicketChannelManager
 
         Console.WriteLine($"📥 Preparing {messages.Count} messages for Ticket #{ticketId}.");
 
-        // Construct batched messages
         var messageChunks = new List<string>();
         var currentBatch = new List<string>();
         int currentLength = 0;
 
         foreach (var msg in messages)
         {
+
+            bool hasText = !string.IsNullOrWhiteSpace(msg.Content);
+            bool isOnlyLink = hasText && Uri.IsWellFormedUriString(msg.Content.Trim(), UriKind.Absolute);
+
+            if (!hasText)
+            {
+                continue;
+            }
+
+            // ✅ Handle only a hyperlink (make it clickable)
+            if (isOnlyLink)
+            {
+                await channel.SendMessageAsync(msg.Content.Trim());
+                continue;
+            }
+
             string formattedMessage = $"[{msg.CreatedAt:HH:mm}] {CapitalizeFirstLetter(msg.DiscordUserName) ?? "Unknown"}: {msg.Content}";
 
-            if (currentLength + formattedMessage.Length + 6 > 2000) // +6 for the code block markers
+            // ✅ Prevent exceeding Discord's 2000-character limit
+            if (currentLength + formattedMessage.Length > 2000)
             {
-                messageChunks.Add($"```{string.Join("\n", currentBatch)}```");
+                messageChunks.Add(string.Join("\n", currentBatch));
                 currentBatch.Clear();
                 currentLength = 0;
             }
 
             currentBatch.Add(formattedMessage);
             currentLength += formattedMessage.Length;
+
+            // ✅ Send text first
+            if (currentBatch.Count > 0)
+            {
+                messageChunks.Add(string.Join("\n", currentBatch));
+                currentBatch.Clear();
+            }
+
         }
 
-        if (currentBatch.Count > 0)
-        {
-            messageChunks.Add($"```{string.Join("\n", currentBatch)}```");
-        }
-
-        // Send the batched messages
+        // Send any remaining text messages
         foreach (var chunk in messageChunks)
         {
             await channel.SendMessageAsync(chunk);
-            await Task.Delay(1000); // Small delay to prevent rate limits
+            await Task.Delay(500); // Prevent rate limits
         }
 
         Console.WriteLine($"✅ Sent {messageChunks.Count} message batches for Ticket #{ticketId}.");
@@ -207,4 +226,13 @@ public class TicketChannelManager
         var user = _client.GetUser(discordUserId);
         return user?.GetAvatarUrl(ImageFormat.Png, 256) ?? "https://i.imgur.com/dnlokbX.png";
     }
+    private string FormatMessage(string content)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+            return content;
+
+        // Ensure URLs are not wrapped in backticks
+        return content.Replace("```", "").Trim();
+    }
+
 }

@@ -20,8 +20,6 @@ public class TicketMessageSyncService
         Task.Run(() => SyncMessagesToDiscordAsync(_cancellationTokenSource.Token));
         Task.Run(() => CheckForReopenedTickets(_cancellationTokenSource.Token)); // New Task
     }
-
-
     private async Task SyncMessagesToDiscordAsync(CancellationToken cancellationToken)
     {
         while (!cancellationToken.IsCancellationRequested)
@@ -48,18 +46,28 @@ public class TicketMessageSyncService
                         continue;
                     }
 
-                    // Format the message
-                    var embed = new EmbedBuilder()
-                        .WithAuthor(
-                            CapitalizeFirstLetter(msg.DiscordUserName) ?? "Unknown User",
-                            msg.DiscordUserId.HasValue ? GetDiscordAvatarUrl(msg.DiscordUserId.Value) : "https://i.imgur.com/dnlokbX.png"
-                        )
-                        .WithDescription($"{msg.Content}")
-                        .WithColor(Color.Blue)
-                        .Build();
+                    // ✅ Format timestamp and username
+                    string timestamp = msg.CreatedAt.ToString("HH:mm");
+                    string username = CapitalizeFirstLetter(msg.DiscordUserName) ?? "Unknown User";
 
-                    // Send message to Discord
-                    await channel.SendMessageAsync(embed: embed);
+                    // ✅ Convert @Username mentions to <@UserID> format
+                    string formattedContent = await ReplaceUserMentions(msg.Content, guild);
+
+                    // ✅ Final formatted message (no embed)
+                    string finalMessage = $"[{timestamp}] {username}: {formattedContent}";
+
+                    // Send text message
+                    await channel.SendMessageAsync(finalMessage);
+
+                    // ✅ Send images separately (so they embed properly in Discord)
+                    if (!string.IsNullOrEmpty(msg.ImgUrlsJson))
+                    {
+                        var imageUrls = System.Text.Json.JsonSerializer.Deserialize<List<string>>(msg.ImgUrlsJson);
+                        foreach (var imageUrl in imageUrls)
+                        {
+                            await channel.SendMessageAsync(imageUrl);
+                        }
+                    }
 
                     // ✅ Mark message as sent
                     msg.SentToDiscord = true;
@@ -74,6 +82,7 @@ public class TicketMessageSyncService
             await Task.Delay(5000);
         }
     }
+
     private static string CapitalizeFirstLetter(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
@@ -138,5 +147,23 @@ public class TicketMessageSyncService
             await Task.Delay(10000); // Check every 10 seconds
         }
     }
+    private async Task<string> ReplaceUserMentions(string content, SocketGuild guild)
+    {
+        if (string.IsNullOrWhiteSpace(content))
+            return content;
 
+        foreach (var user in guild.Users)
+        {
+            string usernameMention = $"@{user.Username}";  // Example: @the_real_deal_kirito
+            string discordMention = $"<@{user.Id}>";       // Example: <@631227310149730362>
+
+            // ✅ Replace @Username with <@UserID> for actual Discord pings
+            if (content.Contains(usernameMention))
+            {
+                content = content.Replace(usernameMention, discordMention);
+            }
+        }
+
+        return content;
+    }
 }

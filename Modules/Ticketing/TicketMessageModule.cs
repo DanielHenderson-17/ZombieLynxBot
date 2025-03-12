@@ -52,6 +52,9 @@ public class TicketMessageModule
             string discordAvatarUrl = message.Author.GetAvatarUrl(ImageFormat.Png, 256) ??
                                       "https://cdn.discordapp.com/embed/avatars/0.png"; // Default avatar
 
+            // ✅ Replace mentions in message content before saving
+            string formattedContent = ReplaceMentionsWithUsernames(message);
+
             // Find the user profile ID based on Discord ID
             var userProfile = _dbContext.UserProfiles.FirstOrDefault(u => u.ZLGMember.DiscordId == message.Author.Id.ToString());
 
@@ -66,13 +69,11 @@ public class TicketMessageModule
                 DiscordUserId = message.Author.Id,
                 DiscordUserName = message.Author.Username,
                 DiscordImgUrl = discordAvatarUrl,
-                Content = message.Content,
+                Content = formattedContent, // ✅ Store the fixed content
                 CreatedAt = message.Timestamp.UtcDateTime,
                 ImgUrlsJson = System.Text.Json.JsonSerializer.Serialize(imgUrls),
                 SentToDiscord = true
             };
-
-
 
             // Debugging - Log message before saving
             Console.WriteLine($"📝 Saving message: Content='{newMessage.Content}', Images={string.Join(", ", newMessage.ImgUrls)}");
@@ -80,15 +81,12 @@ public class TicketMessageModule
             // Save to database
             _dbContext.Messages.Add(newMessage);
             await _dbContext.SaveChangesAsync();
-            Console.WriteLine($"✅ Message logged successfully!");
-
             Console.WriteLine($"✅ Message logged successfully for Ticket #{ticketId}");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"❌ Error logging message: {ex.Message}");
 
-            // ✅ Log inner exception details
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
@@ -132,4 +130,21 @@ public class TicketMessageModule
         _dbContext.Messages.Remove(existingMessage);
         await _dbContext.SaveChangesAsync();
     }
+    private string ReplaceMentionsWithUsernames(SocketUserMessage message)
+    {
+        string content = message.Content;
+
+        // ✅ Find all mentions in the message
+        foreach (var mentionedUser in message.MentionedUsers)
+        {
+            string mentionTag = $"<@{mentionedUser.Id}>";
+            string usernameTag = $"@{mentionedUser.Username}";
+
+            // ✅ Replace `<@UserID>` with `@Username`
+            content = content.Replace(mentionTag, usernameTag);
+        }
+
+        return content;
+    }
+
 }
