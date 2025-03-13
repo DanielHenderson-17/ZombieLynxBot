@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
 
 class Program
 {
@@ -31,6 +32,12 @@ class Program
         });
 
         _commands = new InteractionService(_client.Rest);
+
+        _services = new ServiceCollection()
+            .AddSingleton(_client)
+            .AddSingleton(_commands)
+            .AddSingleton(_config) // <-- Your missing BotConfig injection here
+            .BuildServiceProvider();
 
         _client.Log += LogAsync;
         _client.Ready += ReadyAsync;
@@ -108,9 +115,11 @@ class Program
         public Dictionary<string, string[]> GameServers { get; set; }
 
         public TicketsDbConfig TicketsDb { get; set; }
-        public string SupportChannelId { get; set; }  // ✅ Add this
-        public Dictionary<string, string> SupportRole { get; set; }  // ✅ Add this
-        public Dictionary<string, string> SupportCategory { get; set; }  // ✅ Add this
+        public string SupportChannelId { get; set; }
+        public Dictionary<string, string> SupportRole { get; set; }
+        public Dictionary<string, string> SupportCategory { get; set; }
+        public Dictionary<string, string> SuggestionsChannels { get; set; }
+        public string AdminRole { get; set; }
     }
 
     public class TicketsDbConfig

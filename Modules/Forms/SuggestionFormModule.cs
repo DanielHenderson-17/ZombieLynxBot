@@ -1,0 +1,24 @@
+using Discord;
+using Discord.Interactions;
+using Discord.WebSocket;
+using System.Threading.Tasks;
+
+namespace ZombieLynxBot.Forms
+{
+    public class SuggestionFormModule : InteractionModuleBase<SocketInteractionContext>
+    {
+        [ComponentInteraction("suggestion-modal-*")]
+        public async Task HandleSuggestionButton(string gameKey)
+        {
+            // Open a generic modal when the button is clicked
+            var modal = new ModalBuilder()
+                .WithTitle($"New Suggestion for {gameKey.ToUpper()}")
+                .WithCustomId($"submit-suggestion-{gameKey}")
+                .AddTextInput("Suggestion Title", "suggestion-title", TextInputStyle.Short, "Enter a clear short title", required: true, maxLength: 100)
+                .AddTextInput("Describe your suggestion", "suggestion-description", TextInputStyle.Paragraph, placeholder: "Describe your suggestion clearly...", required: true, maxLength: 1500)
+                .Build();
+
+            await RespondWithModalAsync(modal);
+        }
+    }
+}
