@@ -209,7 +209,7 @@ public class TicketChannelManager
         foreach (var chunk in messageChunks)
         {
             await channel.SendMessageAsync(chunk);
-            await Task.Delay(500); // Prevent rate limits
+            await Task.Delay(500);
         }
 
         Console.WriteLine($"✅ Sent {messageChunks.Count} message batches for Ticket #{ticketId}.");

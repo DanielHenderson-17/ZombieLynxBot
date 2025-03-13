@@ -50,7 +50,7 @@ public class TicketMessageModule
 
             // Get Discord Avatar URL
             string discordAvatarUrl = message.Author.GetAvatarUrl(ImageFormat.Png, 256) ??
-                                      "https://cdn.discordapp.com/embed/avatars/0.png"; // Default avatar
+                                      "https://cdn.discordapp.com/embed/avatars/0.png";
 
             // ✅ Replace mentions in message content before saving
             string formattedContent = ReplaceMentionsWithUsernames(message);
@@ -59,7 +59,7 @@ public class TicketMessageModule
             var userProfile = _dbContext.UserProfiles.FirstOrDefault(u => u.ZLGMember.DiscordId == message.Author.Id.ToString());
 
             // If the user profile is not found, assign a default user profile (Admin or System User)
-            int? userProfileId = userProfile?.Id ?? 1; // Use a default ID (e.g., Admin)
+            int? userProfileId = userProfile?.Id ?? 1;
 
             var newMessage = new Message
             {

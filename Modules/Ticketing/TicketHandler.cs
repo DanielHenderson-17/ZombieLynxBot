@@ -39,8 +39,8 @@ public class TicketHandler
                     Status = "Open",
                     CreatedAt = DateTime.UtcNow,
                     UpdatedAt = DateTime.UtcNow,
-                    UserProfileId = null, // ❌ No UserProfileId assigned
-                    DiscordUserId = discordUserId // ✅ Save the Discord ID for reference
+                    UserProfileId = null,
+                    DiscordUserId = discordUserId
                 };
 
                 _dbContext.Tickets.Add(ticketWithoutUser);

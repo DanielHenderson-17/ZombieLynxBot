@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 public class UserProfile
 {
     [Key]
-    public int Id { get; set; }  // Primary Key
+    public int Id { get; set; }
 
     [Required, MaxLength(50)]
     public string FirstName { get; set; } = string.Empty;
@@ -14,7 +14,7 @@ public class UserProfile
     public string LastName { get; set; } = string.Empty;
 
     [Required]
-    public Guid UserId { get; set; }  // Foreign Key to User (not needed in the bot)
+    public Guid UserId { get; set; }
 
     // Navigation property for ZLGMember
     public ZLGMember? ZLGMember { get; set; }

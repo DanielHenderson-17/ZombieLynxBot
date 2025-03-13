@@ -10,7 +10,6 @@ namespace ZombieLynxBot.Forms
         [ComponentInteraction("suggestion-modal-*")]
         public async Task HandleSuggestionButton(string gameKey)
         {
-            // Open a generic modal when the button is clicked
             var modal = new ModalBuilder()
                 .WithTitle($"New Suggestion for {gameKey.ToUpper()}")
                 .WithCustomId($"submit-suggestion-{gameKey}")

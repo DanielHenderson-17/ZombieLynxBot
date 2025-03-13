@@ -85,7 +85,7 @@ namespace ZombieLynxBot.Suggestions
                 _ => ""
             };
         }
-        private static readonly HashSet<ulong> LockedMessages = new(); // Tracks locked messages
+        private static readonly HashSet<ulong> LockedMessages = new();
 
         public async Task HandleReactionAdded(Cacheable<IUserMessage, ulong> messageCache, Cacheable<IMessageChannel, ulong> channelCache, SocketReaction reaction)
         {
@@ -98,10 +98,7 @@ namespace ZombieLynxBot.Suggestions
             var message = await messageCache.GetOrDownloadAsync();
             if (message == null) return;
 
-            // 🔥 DEBUG LOGGING: Check if any reaction is detected at all
-            Console.WriteLine($"🔍 Reaction detected: {reaction.Emote.Name} from {user.Username} on message {message.Id}");
-
-            // ✅ Check if the message is locked
+            // ⛔ If the message is locked, remove all reactions
             if (LockedMessages.Contains(message.Id))
             {
                 Console.WriteLine($"⛔ Message {message.Id} is locked. Removing reaction: {reaction.Emote.Name}");

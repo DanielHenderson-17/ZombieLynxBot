@@ -18,7 +18,7 @@ public class TicketMessageSyncService
         _dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider);
 
         Task.Run(() => SyncMessagesToDiscordAsync(_cancellationTokenSource.Token));
-        Task.Run(() => CheckForReopenedTickets(_cancellationTokenSource.Token)); // New Task
+        Task.Run(() => CheckForReopenedTickets(_cancellationTokenSource.Token));
     }
     private async Task SyncMessagesToDiscordAsync(CancellationToken cancellationToken)
     {
@@ -154,8 +154,8 @@ public class TicketMessageSyncService
 
         foreach (var user in guild.Users)
         {
-            string usernameMention = $"@{user.Username}";  // Example: @the_real_deal_kirito
-            string discordMention = $"<@{user.Id}>";       // Example: <@631227310149730362>
+            string usernameMention = $"@{user.Username}";
+            string discordMention = $"<@{user.Id}>";
 
             // ✅ Replace @Username with <@UserID> for actual Discord pings
             if (content.Contains(usernameMention))

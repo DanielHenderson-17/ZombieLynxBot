@@ -17,7 +17,6 @@ class Program
     private IServiceProvider _services;
     private BotConfig _config;
 
-    // Make the config accessible globally
     public static BotConfig Config { get; private set; } = new BotConfig();
 
     static async Task Main(string[] args) => await new Program().RunBotAsync();
@@ -60,7 +59,7 @@ class Program
         new TicketMessageModule(_client);
 
         // ✅ Initialize the Ticket Message Syncing Service
-        new TicketMessageSyncService(_client); // 🔥 FIXED! Moved this above Task.Delay
+        new TicketMessageSyncService(_client);
 
         await Task.Delay(-1); // ⬅️ This should always be at the very end.
     }

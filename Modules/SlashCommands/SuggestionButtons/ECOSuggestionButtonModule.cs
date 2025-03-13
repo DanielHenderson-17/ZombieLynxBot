@@ -13,7 +13,6 @@ namespace ZombieLynxBot.SlashCommands
         {
             var user = (SocketGuildUser)Context.User;
 
-            // No injected dependencies—just accessing your existing static Config
             if (!user.Roles.Any(role => role.Id == ulong.Parse(Program.Config.AdminRole)))
             {
                 await RespondAsync("❌ You do not have permission to execute this command.", ephemeral: true);
