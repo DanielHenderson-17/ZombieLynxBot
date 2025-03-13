@@ -7,6 +7,8 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
+using ZombieLynxBot.Suggestions;
+
 
 class Program
 {
@@ -28,7 +30,8 @@ class Program
         {
             GatewayIntents = GatewayIntents.Guilds |
                              GatewayIntents.GuildMessages |
-                             GatewayIntents.MessageContent
+                             GatewayIntents.MessageContent |
+                             GatewayIntents.GuildMessageReactions
         });
 
         _commands = new InteractionService(_client.Rest);
@@ -36,18 +39,22 @@ class Program
         _services = new ServiceCollection()
             .AddSingleton(_client)
             .AddSingleton(_commands)
-            .AddSingleton(_config) // <-- Your missing BotConfig injection here
+            .AddSingleton(_config)
+            .AddSingleton<SuggestionHandler>()
             .BuildServiceProvider();
 
         _client.Log += LogAsync;
         _client.Ready += ReadyAsync;
         _client.InteractionCreated += HandleInteractionAsync;
+        _client.ReactionAdded += HandleReactionAdded;
+
 
         await _client.LoginAsync(TokenType.Bot, _config.Token);
         await _client.StartAsync();
 
         // ✅ Register commands after bot is ready
         _client.Ready += RegisterCommandsAsync;
+
 
         // ✅ Initialize the Ticket Message Tracking Module
         new TicketMessageModule(_client);
@@ -128,5 +135,10 @@ class Program
         public string Provider { get; set; }
     }
 
+    private async Task HandleReactionAdded(Cacheable<IUserMessage, ulong> messageCache, Cacheable<IMessageChannel, ulong> channelCache, SocketReaction reaction)
+    {
+        var handler = _services.GetRequiredService<SuggestionHandler>();
+        await handler.HandleReactionAdded(messageCache, channelCache, reaction);
+    }
 
 }

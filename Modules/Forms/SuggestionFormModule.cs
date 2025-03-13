@@ -14,7 +14,6 @@ namespace ZombieLynxBot.Forms
             var modal = new ModalBuilder()
                 .WithTitle($"New Suggestion for {gameKey.ToUpper()}")
                 .WithCustomId($"submit-suggestion-{gameKey}")
-                .AddTextInput("Suggestion Title", "suggestion-title", TextInputStyle.Short, "Enter a clear short title", required: true, maxLength: 100)
                 .AddTextInput("Describe your suggestion", "suggestion-description", TextInputStyle.Paragraph, placeholder: "Describe your suggestion clearly...", required: true, maxLength: 1500)
                 .Build();
 

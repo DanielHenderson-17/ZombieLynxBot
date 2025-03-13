@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace ZombieLynxBot.Suggestions
 {
-    // Define the modal inputs clearly in a separate class here
     public class SuggestionModal : IModal
     {
         public string Title => "New Suggestion";
@@ -40,22 +39,37 @@ namespace ZombieLynxBot.Suggestions
                 return;
             }
 
+            var suggesterId = Context.User.Id;
+            var suggesterMention = Context.User.Mention;
+            var suggesterName = Context.User.Username;
+            var suggesterAvatar = Context.User.GetAvatarUrl();
+            var maxWidth = 61;
+            var separator = new string('─', maxWidth);
+
             var embed = new EmbedBuilder()
-                .WithTitle($"📌 {title}")
-                .WithDescription(description)
-                .WithFooter($"Suggested by {Context.User.Username}", Context.User.GetAvatarUrl())
-                .WithColor(Color.Orange)
+                .WithAuthor(suggesterName, suggesterAvatar)
+                .WithTitle("**Suggestion:**")
+                .WithDescription($"💬 {description}")
+                .WithColor(Color.Green)
+                .WithFooter("React below to vote!", null)
                 .WithCurrentTimestamp()
+                .AddField("\u200B", separator)
                 .Build();
 
             var suggestionMessage = await channel.SendMessageAsync(embed: embed);
 
-            // Add voting reactions clearly
+            // Store the suggester’s ID for later use when locking
+            SuggestionMessageAuthors[suggestionMessage.Id] = suggesterId;
+
+            // Add voting reactions
             await suggestionMessage.AddReactionAsync(new Emoji("👍"));
             await suggestionMessage.AddReactionAsync(new Emoji("👎"));
 
             await RespondAsync($"✅ Your suggestion was successfully submitted to {channel.Mention}.", ephemeral: true);
         }
+
+        // ✅ Store message authors globally so we can use them when locking
+        private static readonly Dictionary<ulong, ulong> SuggestionMessageAuthors = new();
 
         private string GetSuggestionChannelName(string gameKey)
         {
@@ -66,9 +80,70 @@ namespace ZombieLynxBot.Suggestions
                 "eco" => "✍︱eco-server-suggestions",
                 "minecraft" => "✍︱minecraft-server-suggestions",
                 "empyrion" => "✍︱empyrion-server-suggestions",
+                "rust" => "✍︱rust-server-suggestions",
                 "game" => "💬︱game-suggestions",
                 _ => ""
             };
+        }
+        private static readonly HashSet<ulong> LockedMessages = new(); // Tracks locked messages
+
+        public async Task HandleReactionAdded(Cacheable<IUserMessage, ulong> messageCache, Cacheable<IMessageChannel, ulong> channelCache, SocketReaction reaction)
+        {
+            var guild = (reaction.Channel as SocketTextChannel)?.Guild;
+            if (guild == null) return;
+
+            var user = reaction.User.IsSpecified ? reaction.User.Value as SocketGuildUser : null;
+            if (user == null || user.IsBot) return;
+
+            var message = await messageCache.GetOrDownloadAsync();
+            if (message == null) return;
+
+            // 🔥 DEBUG LOGGING: Check if any reaction is detected at all
+            Console.WriteLine($"🔍 Reaction detected: {reaction.Emote.Name} from {user.Username} on message {message.Id}");
+
+            // ✅ Check if the message is locked
+            if (LockedMessages.Contains(message.Id))
+            {
+                Console.WriteLine($"⛔ Message {message.Id} is locked. Removing reaction: {reaction.Emote.Name}");
+                await message.RemoveReactionAsync(reaction.Emote, user);
+                return;
+            }
+            // ✅ If an admin reacts with 🔒, lock the message
+            if (reaction.Emote.Name == "🔒" && user.Roles.Any(role => role.Id == ulong.Parse(Program.Config.AdminRole)))
+            {
+                var upvote = new Emoji("👍");
+                var downvote = new Emoji("👎");
+
+                var upvoteCount = message.Reactions.ContainsKey(upvote) ? message.Reactions[upvote].ReactionCount - 1 : 0;
+                var downvoteCount = message.Reactions.ContainsKey(downvote) ? message.Reactions[downvote].ReactionCount - 1 : 0;
+
+                var totalVotes = upvoteCount + downvoteCount;
+
+                LockedMessages.Add(message.Id);
+                Console.WriteLine($"🔒 Message {message.Id} has been locked by {user.Username}");
+
+                // ✅ Get the correct suggester's ID from our dictionary
+                SuggestionMessageAuthors.TryGetValue(message.Id, out ulong suggesterId);
+                string suggesterMention = suggesterId != 0 ? $"<@{suggesterId}>" : "Unknown User";
+
+                // Case 1: Not enough votes
+                if (totalVotes < 5)
+                {
+                    await message.ReplyAsync($"{suggesterMention} 🔒 There are not enough votes to implement this at this time. Please attempt to get more interest and try another vote later.");
+                    return;
+                }
+
+                // Case 2: Thumbs up wins
+                if (upvoteCount > downvoteCount)
+                {
+                    await message.ReplyAsync($"{suggesterMention} ✅ The vote has passed. It will be implemented when allowable.");
+                }
+                // Case 3: Thumbs down wins
+                else
+                {
+                    await message.ReplyAsync($"{suggesterMention} ❌ The vote did not pass. We can take a look at this in the future once there is more interest.");
+                }
+            }
         }
     }
 }
