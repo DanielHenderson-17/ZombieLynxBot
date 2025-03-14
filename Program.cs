@@ -40,6 +40,7 @@ class Program
             .AddSingleton(_commands)
             .AddSingleton(_config)
             .AddSingleton<SuggestionHandler>()
+            .AddSingleton<SuggestionExpirationService>()
             .BuildServiceProvider();
 
         _client.Log += LogAsync;
@@ -101,6 +102,10 @@ class Program
 
         // ✅ Initialize the Ticket Message Tracking Module
         new TicketMessageModule(_client);
+
+        // ✅ Start the SuggestionExpirationService in the background
+        var expirationService = _services.GetRequiredService<SuggestionExpirationService>();
+        _ = Task.Run(() => expirationService.StartAsync(CancellationToken.None));
     }
 
 

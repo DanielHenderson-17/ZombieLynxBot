@@ -52,10 +52,10 @@ namespace ZombieLynxBot.Suggestions
             var embed = new EmbedBuilder()
                 .WithAuthor(suggesterNameFormatted, suggesterAvatar)
                 .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
-                .WithDescription($"{separator}")
                 .WithColor(Color.Green)
                 .AddField("💬 **Suggestion:**", $"```{description}```", inline: false)
                 .AddField("\u200B", $"**Vote closes in:** <t:{voteCloseTime}:R>", inline: true)
+                .AddField(separator, "\u200B", inline: false)
                 .WithFooter($"React below to vote!", null)
                 .WithCurrentTimestamp()
                 .Build();
@@ -102,52 +102,141 @@ namespace ZombieLynxBot.Suggestions
             if (user == null || user.IsBot) return;
 
             var message = await messageCache.GetOrDownloadAsync();
-            if (message == null) return;
+            if (message == null || message.Embeds.Count == 0) return; // Ensure message has an embed
 
-            // ⛔ If the message is locked, remove all reactions
+            var embed = message.Embeds.FirstOrDefault();
+            if (embed == null) return;
+
+            // ⛔ If the message is already locked, remove all reactions
             if (LockedMessages.Contains(message.Id))
             {
-                Console.WriteLine($"⛔ Message {message.Id} is locked. Removing reaction: {reaction.Emote.Name}");
+                Console.WriteLine($"⛔ Message {message.Id} is already locked. Removing reaction: {reaction.Emote.Name}");
                 await message.RemoveReactionAsync(reaction.Emote, user);
                 return;
             }
-            // ✅ If an admin reacts with 🔒, lock the message
-            if (reaction.Emote.Name == "🔒" && user.Roles.Any(role => role.Id == ulong.Parse(Program.Config.AdminRole)))
+
+            // ✅ Ensure the user is an admin before proceeding
+            bool isAdmin = user.Roles.Any(role => role.Id == ulong.Parse(Program.Config.AdminRole));
+            if (!isAdmin) return;
+
+            if (reaction.Emote.Name == "🔒")
             {
-                var upvote = new Emoji("⬆️");
-                var downvote = new Emoji("⬇️");
+                await LockSuggestionAsync(message);
+                return;
+            }
 
-                var upvoteCount = message.Reactions.ContainsKey(upvote) ? message.Reactions[upvote].ReactionCount - 1 : 0;
-                var downvoteCount = message.Reactions.ContainsKey(downvote) ? message.Reactions[downvote].ReactionCount - 1 : 0;
-
-                var totalVotes = upvoteCount + downvoteCount;
-
-                LockedMessages.Add(message.Id);
-                Console.WriteLine($"🔒 Message {message.Id} has been locked by {user.Username}");
-
-                // ✅ Get the correct suggester's ID from our dictionary
-                SuggestionMessageAuthors.TryGetValue(message.Id, out ulong suggesterId);
-                string suggesterMention = suggesterId != 0 ? $"<@{suggesterId}>" : "Unknown User";
-
-                // Case 1: Not enough votes
-                if (totalVotes < 5)
-                {
-                    await message.ReplyAsync($"{suggesterMention} 🔒 There are not enough votes to implement this at this time. Please attempt to get more interest and try another vote later.");
-                    return;
-                }
-
-                // Case 2: Thumbs up wins
-                if (upvoteCount > downvoteCount)
-                {
-                    await message.ReplyAsync($"{suggesterMention} ✅ The vote has passed. It will be implemented when allowable.");
-                }
-                // Case 3: Thumbs down wins
-                else
-                {
-                    await message.ReplyAsync($"{suggesterMention} ❌ The vote did not pass. We can take a look at this in the future once there is more interest.");
-                }
+            if (reaction.Emote.Name == "🚫")
+            {
+                await VetoSuggestionAsync(message, user.Username);
+                return;
             }
         }
 
+        public async Task VetoSuggestionAsync(IUserMessage message, string adminUsername)
+        {
+            var lockEmoji = new Emoji("🔒");
+            var vetoEmoji = new Emoji("🚫");
+
+            LockedMessages.Add(message.Id);
+            Console.WriteLine($"🚫 Suggestion {message.Id} was vetoed by {adminUsername}");
+
+            // ✅ React with 🔒 before modifying the embed
+            await message.AddReactionAsync(lockEmoji);
+
+            // ✅ Get the correct suggester's ID from our dictionary
+            SuggestionMessageAuthors.TryGetValue(message.Id, out ulong suggesterId);
+            string suggesterMention = suggesterId != 0 ? $"<@{suggesterId}>" : "Unknown User";
+
+            // Retrieve the existing embed
+            var embed = message.Embeds.FirstOrDefault();
+            if (embed == null) return;
+
+            var embedBuilder = new EmbedBuilder()
+                .WithAuthor(embed.Author?.Name ?? "Unknown", embed.Author?.IconUrl)
+                .WithThumbnailUrl(embed.Thumbnail?.Url)
+                .WithColor(Color.Red)
+                .WithDescription(embed.Description)
+                .WithFooter($"🚫 Vetoed by {adminUsername}")
+                .WithCurrentTimestamp();
+
+            // ✅ Convert existing embed fields, but exclude "Vote closes in:"
+            foreach (var field in embed.Fields)
+            {
+                if (!field.Value.Contains("Vote closes in:"))
+                {
+                    embedBuilder.AddField(field.Name, field.Value, field.Inline);
+                }
+            }
+
+            // ✅ Set the veto result message
+            string resultMessage = $"{suggesterMention}, ❌ **The suggestion has been vetoed by an admin due to likely not aligning with ZLG goals.**";
+
+            // ✅ Add the veto message as a new field in the embed
+            embedBuilder.AddField("\u200B", resultMessage, inline: false);
+
+            // ✅ Edit the original message with the updated embed
+            await message.ModifyAsync(msg => msg.Embed = embedBuilder.Build());
+        }
+
+        public async Task LockSuggestionAsync(IUserMessage message)
+        {
+            var upvote = new Emoji("⬆️");
+            var downvote = new Emoji("⬇️");
+            var lockEmoji = new Emoji("🔒");
+
+            var upvoteCount = message.Reactions.ContainsKey(upvote) ? message.Reactions[upvote].ReactionCount - 1 : 0;
+            var downvoteCount = message.Reactions.ContainsKey(downvote) ? message.Reactions[downvote].ReactionCount - 1 : 0;
+            var totalVotes = upvoteCount + downvoteCount;
+
+            LockedMessages.Add(message.Id);
+            Console.WriteLine($"🔒 Auto-locking expired suggestion: {message.Id}");
+            await message.AddReactionAsync(lockEmoji);
+
+            // ✅ Get the correct suggester's ID from our dictionary
+            SuggestionMessageAuthors.TryGetValue(message.Id, out ulong suggesterId);
+            string suggesterMention = suggesterId != 0 ? $"<@{suggesterId}>" : "Unknown User";
+
+            // Retrieve the existing embed
+            var embed = message.Embeds.FirstOrDefault();
+            if (embed == null) return;
+
+            var embedBuilder = new EmbedBuilder()
+                .WithAuthor(embed.Author?.Name ?? "Unknown", embed.Author?.IconUrl)
+                .WithThumbnailUrl(embed.Thumbnail?.Url)
+                .WithColor(embed.Color ?? Color.Default)
+                .WithDescription(embed.Description)
+                .WithFooter("🚫 Vote is now closed")
+                .WithCurrentTimestamp();
+
+            // ✅ Convert existing embed fields, but exclude "Vote closes in:"
+            foreach (var field in embed.Fields)
+            {
+                if (!field.Value.Contains("Vote closes in:"))
+                {
+                    embedBuilder.AddField(field.Name, field.Value, field.Inline);
+                }
+            }
+
+            // ✅ Determine the vote outcome
+            string resultMessage;
+            if (totalVotes < 5)
+            {
+                resultMessage = $"{suggesterMention}, ❌ **Suggestions require 5 votes minimum.**";
+            }
+            else if (upvoteCount > downvoteCount)
+            {
+                resultMessage = $"{suggesterMention}, ✅ **The vote has passed!**";
+            }
+            else
+            {
+                resultMessage = $"{suggesterMention}, ❌ **The vote did not pass.**";
+            }
+
+            // ✅ Add the voting results as a new field in the embed
+            embedBuilder.AddField("\u200B", resultMessage, inline: false);
+
+            // ✅ Edit the original message with the updated embed
+            await message.ModifyAsync(msg => msg.Embed = embedBuilder.Build());
+        }
     }
 }
