@@ -69,6 +69,12 @@ class Program
         var configText = File.ReadAllText("botconfig.json");
         _config = JsonSerializer.Deserialize<BotConfig>(configText);
 
+        // Ensure GuildId is properly set
+        if (string.IsNullOrWhiteSpace(_config.GuildId))
+        {
+            Console.WriteLine("❌ GuildId is missing or invalid in botconfig.json!");
+        }
+
         // Set the global Config property
         Config = _config;
     }
@@ -118,6 +124,7 @@ class Program
     public class BotConfig
     {
         public string Token { get; set; }
+        public string GuildId { get; set; }
         public Dictionary<string, string[]> GameServers { get; set; }
 
         public TicketsDbConfig TicketsDb { get; set; }

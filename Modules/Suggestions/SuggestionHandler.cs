@@ -43,18 +43,24 @@ namespace ZombieLynxBot.Suggestions
             var suggesterMention = Context.User.Mention;
             var suggesterName = Context.User.Username;
             var suggesterAvatar = Context.User.GetAvatarUrl();
-            var maxWidth = 61;
+            var maxWidth = 49;
             var separator = new string('─', maxWidth);
+            var suggesterNameFormatted = char.ToUpper(suggesterName[0]) + suggesterName.Substring(1);
+            var voteCloseTime = DateTimeOffset.UtcNow.AddDays(5).ToUnixTimeSeconds();
+
 
             var embed = new EmbedBuilder()
-                .WithAuthor(suggesterName, suggesterAvatar)
-                .WithTitle("**Suggestion:**")
-                .WithDescription($"💬 {description}")
+                .WithAuthor(suggesterNameFormatted, suggesterAvatar)
+                .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
+                .WithDescription($"{separator}")
                 .WithColor(Color.Green)
-                .WithFooter("React below to vote!", null)
+                .AddField("💬 **Suggestion:**", $"```{description}```", inline: false)
+                .AddField("\u200B", $"**Vote closes in:** <t:{voteCloseTime}:R>", inline: true)
+                .WithFooter($"React below to vote!", null)
                 .WithCurrentTimestamp()
-                .AddField("\u200B", separator)
                 .Build();
+
+
 
             var suggestionMessage = await channel.SendMessageAsync(embed: embed);
 
@@ -62,8 +68,8 @@ namespace ZombieLynxBot.Suggestions
             SuggestionMessageAuthors[suggestionMessage.Id] = suggesterId;
 
             // Add voting reactions
-            await suggestionMessage.AddReactionAsync(new Emoji("👍"));
-            await suggestionMessage.AddReactionAsync(new Emoji("👎"));
+            await suggestionMessage.AddReactionAsync(new Emoji("⬆️"));
+            await suggestionMessage.AddReactionAsync(new Emoji("⬇️"));
 
             await RespondAsync($"✅ Your suggestion was successfully submitted to {channel.Mention}.", ephemeral: true);
         }
@@ -108,8 +114,8 @@ namespace ZombieLynxBot.Suggestions
             // ✅ If an admin reacts with 🔒, lock the message
             if (reaction.Emote.Name == "🔒" && user.Roles.Any(role => role.Id == ulong.Parse(Program.Config.AdminRole)))
             {
-                var upvote = new Emoji("👍");
-                var downvote = new Emoji("👎");
+                var upvote = new Emoji("⬆️");
+                var downvote = new Emoji("⬇️");
 
                 var upvoteCount = message.Reactions.ContainsKey(upvote) ? message.Reactions[upvote].ReactionCount - 1 : 0;
                 var downvoteCount = message.Reactions.ContainsKey(downvote) ? message.Reactions[downvote].ReactionCount - 1 : 0;
@@ -142,5 +148,6 @@ namespace ZombieLynxBot.Suggestions
                 }
             }
         }
+
     }
 }

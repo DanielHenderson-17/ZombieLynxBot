@@ -5,6 +5,7 @@ public class BotConfig
 {
     public string? Token { get; set; }
     public string? SupportChannelId { get; set; }
+    public string GuildId { get; set; }
     public Dictionary<string, string[]>? GameServers { get; set; }
     public string AdminRole { get; set; }
 
