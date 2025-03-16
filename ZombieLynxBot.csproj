@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Discord.Net" Version="3.13.0" />
-    <PackageReference Include="Discord.Net.Interactions" Version="3.13.0" />
+    <PackageReference Include="Discord.Net" Version="3.13.1" />
+    <PackageReference Include="Discord.Net.Interactions" Version="3.13.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
