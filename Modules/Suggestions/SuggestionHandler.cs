@@ -55,7 +55,8 @@ namespace ZombieLynxBot.Suggestions
                 .WithColor(Color.Green)
                 .AddField("💬 **Suggestion:**", $"```{description}```", inline: false)
                 .AddField("\u200B", $"**Vote closes in:** <t:{voteCloseTime}:R>", inline: true)
-                .AddField(separator, "\u200B", inline: false)
+                // .AddField(separator, "\u200B", inline: false)
+                .WithImageUrl("https://imgur.com/a/iC7KmOw")
                 .WithFooter($"React below to vote!", null)
                 .WithCurrentTimestamp()
                 .Build();
@@ -95,6 +96,7 @@ namespace ZombieLynxBot.Suggestions
 
         public async Task HandleReactionAdded(Cacheable<IUserMessage, ulong> messageCache, Cacheable<IMessageChannel, ulong> channelCache, SocketReaction reaction)
         {
+
             var guild = (reaction.Channel as SocketTextChannel)?.Guild;
             if (guild == null) return;
 
@@ -106,6 +108,28 @@ namespace ZombieLynxBot.Suggestions
 
             var embed = message.Embeds.FirstOrDefault();
             if (embed == null) return;
+
+            var upvote = new Emoji("⬆️");
+            var downvote = new Emoji("⬇️");
+
+            // If the user reacts with ⬆️ or ⬇️, enforce single-vote rule
+            if (reaction.Emote.Name == "⬆️" || reaction.Emote.Name == "⬇️")
+            {
+                var oppositeVote = reaction.Emote.Name == "⬆️" ? downvote : upvote;
+
+                // Check if user has the opposite reaction and remove it
+                var messageReactions = message.Reactions;
+                if (messageReactions.ContainsKey(oppositeVote))
+                {
+                    var usersReacted = await message.GetReactionUsersAsync(oppositeVote, 100).FlattenAsync();
+                    if (usersReacted.Any(u => u.Id == user.Id))
+                    {
+                        await message.RemoveReactionAsync(oppositeVote, user);
+                    }
+                }
+
+                return;
+            }
 
             // ⛔ If the message is already locked, remove all reactions
             if (LockedMessages.Contains(message.Id))
@@ -127,18 +151,25 @@ namespace ZombieLynxBot.Suggestions
 
             if (reaction.Emote.Name == "🚫")
             {
-                await VetoSuggestionAsync(message, user.Username);
+                await VetoSuggestionAsync(message, user, reaction);
                 return;
             }
+
         }
 
-        public async Task VetoSuggestionAsync(IUserMessage message, string adminUsername)
+        public async Task VetoSuggestionAsync(IUserMessage message, SocketGuildUser user, SocketReaction reaction)
         {
             var lockEmoji = new Emoji("🔒");
             var vetoEmoji = new Emoji("🚫");
 
             LockedMessages.Add(message.Id);
-            Console.WriteLine($"🚫 Suggestion {message.Id} was vetoed by {adminUsername}");
+            Console.WriteLine($"🚫 Suggestion {message.Id} was vetoed by {user.Username}");
+
+            // ✅ Remove the admin's 🚫 reaction first
+            await message.RemoveReactionAsync(reaction.Emote, user);
+
+            // ✅ Now make the bot react with 🚫
+            await message.AddReactionAsync(vetoEmoji);
 
             // ✅ React with 🔒 before modifying the embed
             await message.AddReactionAsync(lockEmoji);
@@ -156,7 +187,8 @@ namespace ZombieLynxBot.Suggestions
                 .WithThumbnailUrl(embed.Thumbnail?.Url)
                 .WithColor(Color.Red)
                 .WithDescription(embed.Description)
-                .WithFooter($"🚫 Vetoed by {adminUsername}")
+                .WithImageUrl("https://imgur.com/a/iC7KmOw")
+                .WithFooter($"🚫 Vetoed by {user.Username}")
                 .WithCurrentTimestamp();
 
             // ✅ Convert existing embed fields, but exclude "Vote closes in:"
@@ -205,6 +237,7 @@ namespace ZombieLynxBot.Suggestions
                 .WithThumbnailUrl(embed.Thumbnail?.Url)
                 .WithColor(embed.Color ?? Color.Default)
                 .WithDescription(embed.Description)
+                .WithImageUrl("https://imgur.com/a/iC7KmOw")
                 .WithFooter("🚫 Vote is now closed")
                 .WithCurrentTimestamp();
 
