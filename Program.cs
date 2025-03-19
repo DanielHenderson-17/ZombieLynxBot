@@ -129,6 +129,7 @@ class Program
     public class BotConfig
     {
         public string Token { get; set; }
+        public string TranscriptLogChannel { get; set; }
         public string GuildId { get; set; }
         public Dictionary<string, string[]> GameServers { get; set; }
 

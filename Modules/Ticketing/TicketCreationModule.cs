@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
@@ -174,6 +176,31 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
         var closeMessage = "Hopefully we helped you out today. If you have any further issues in the future, please submit a new ticket.";
         await Context.Channel.SendMessageAsync(closeMessage);
 
+        // ✅ Send a closing embed in the transcript log channel
+        ulong transcriptChannelId = Convert.ToUInt64(Program.Config.TranscriptLogChannel);
+        var transcriptChannel = Context.Client.GetChannel(transcriptChannelId) as SocketTextChannel;
+
+        if (transcriptChannel != null)
+        {
+            var embed = new EmbedBuilder()
+                .WithAuthor(Context.User.Username + "#" + Context.User.Discriminator, Context.User.GetAvatarUrl())
+                .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
+                .WithColor(new Color(46, 204, 113))
+                .AddField("Ticket Owner", $"<@{Context.User.Id}>", true)
+                .AddField("Ticket Name", $"Ticket-{ticketId}", true)
+                .AddField("Panel Name", "Help!", true)
+                .AddField("🔒 Closed At", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), false)
+                .WithFooter("Closed Ticket Archive")
+                .WithCurrentTimestamp();
+
+            var components = new ComponentBuilder()
+                .WithButton("📜 Transcript", $"transcript_{ticketId}", ButtonStyle.Primary);
+
+            await transcriptChannel.SendMessageAsync(embed: embed.Build(), components: components.Build());
+        }
+
+
+
         // ✅ Respond to the button press
         await RespondAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.", ephemeral: true);
 
@@ -188,4 +215,78 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             Console.WriteLine("❌ Error: Tried to delete a non-text channel.");
         }
     }
+    [ComponentInteraction("transcript_*")]
+    public async Task HandleTranscriptButton(string customId)
+    {
+        await DeferAsync(ephemeral: true);
+
+        string ticketIdString = customId.Replace("transcript_", "");
+        if (!int.TryParse(ticketIdString, out int ticketId))
+        {
+            await FollowupAsync("❌ Invalid ticket ID.", ephemeral: true);
+            return;
+        }
+
+        using var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider);
+
+        var ticket = dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+        if (ticket == null)
+        {
+            await FollowupAsync("❌ Ticket not found in the database.", ephemeral: true);
+            return;
+        }
+
+        var messages = dbContext.Messages
+            .Where(m => m.MessageGroupId == ticketId)
+            .OrderBy(m => m.CreatedAt)
+            .ToList();
+
+        // Load the HTML template from disk
+        string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "transcript_template.html");
+        if (!File.Exists(templatePath))
+        {
+            await FollowupAsync($"❌ Transcript template not found at {templatePath}.", ephemeral: true);
+            return;
+        }
+
+
+        string htmlTemplate = await File.ReadAllTextAsync(templatePath);
+
+        // Build messages HTML dynamically
+        var messagesHtml = "";
+        foreach (var msg in messages)
+        {
+            var timestamp = msg.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+            var user = msg.DiscordUserName ?? "Unknown";
+            var content = System.Net.WebUtility.HtmlEncode(msg.Content);
+
+            messagesHtml += $@"
+        <div class='message'>
+            <div class='timestamp'>{timestamp}</div>
+            <div class='username'>{user}</div>
+            <div class='content'>{content}</div>";
+
+            if (msg.ImgUrls.Any())
+            {
+                foreach (var imgUrl in msg.ImgUrls)
+                {
+                    messagesHtml += $"<img src='{imgUrl}' />";
+                }
+            }
+
+            messagesHtml += "</div>";
+        }
+
+        // Insert into template
+        var finalHtml = htmlTemplate
+            .Replace("{TICKET_ID}", ticketId.ToString())
+            .Replace("{MESSAGES}", messagesHtml);
+
+        // Convert to stream and send as attachment
+        var fileBytes = System.Text.Encoding.UTF8.GetBytes(finalHtml);
+        using var stream = new MemoryStream(fileBytes);
+
+        await FollowupWithFileAsync(stream, $"ticket-{ticketId}-transcript.html", $"📜 Here's the transcript for Ticket #{ticketId}:");
+    }
+
 }
