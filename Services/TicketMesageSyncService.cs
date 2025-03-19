@@ -19,6 +19,7 @@ public class TicketMessageSyncService
 
         Task.Run(() => SyncMessagesToDiscordAsync(_cancellationTokenSource.Token));
         Task.Run(() => CheckForReopenedTickets(_cancellationTokenSource.Token));
+        Task.Run(() => CheckForClosedTickets(_cancellationTokenSource.Token));
     }
     private async Task SyncMessagesToDiscordAsync(CancellationToken cancellationToken)
     {
@@ -147,6 +148,60 @@ public class TicketMessageSyncService
             await Task.Delay(10000); // Check every 10 seconds
         }
     }
+
+    private async Task CheckForClosedTickets(CancellationToken cancellationToken)
+    {
+        while (!cancellationToken.IsCancellationRequested)
+        {
+            try
+            {
+                using (var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider))
+                {
+                    Console.WriteLine("🔍 Checking for closed tickets...");
+
+                    var closedTickets = dbContext.Tickets
+                        .Where(t => t.Status == "Closed" && t.DiscordChannelId != null)
+                        .ToList();
+
+                    Console.WriteLine($"🔍 Found {closedTickets.Count} closed tickets.");
+
+                    foreach (var ticket in closedTickets)
+                    {
+                        ulong channelId = (ulong)ticket.DiscordChannelId;
+                        var channel = _client.GetChannel(channelId) as SocketTextChannel;
+
+                        if (channel != null)
+                        {
+                            Console.WriteLine($"🔴 Closing Discord channel for Ticket #{ticket.Id}.");
+
+                            // ✅ Send closure message to the channel
+                            await channel.SendMessageAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.");
+
+                            // ✅ Wait for 10 seconds before deleting
+                            await Task.Delay(10000, cancellationToken);
+
+                            await channel.DeleteAsync();
+                        }
+                        else
+                        {
+                            Console.WriteLine($"⚠️ Could not find Discord channel {channelId} for Ticket #{ticket.Id}.");
+                        }
+
+                        // ✅ Remove the DiscordChannelId from the ticket to mark it as processed
+                        ticket.DiscordChannelId = null;
+                        await dbContext.SaveChangesAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Error checking closed tickets: {ex.Message}");
+            }
+
+            await Task.Delay(10000); // Check every 10 seconds
+        }
+    }
+
     private async Task<string> ReplaceUserMentions(string content, SocketGuild guild)
     {
         if (string.IsNullOrWhiteSpace(content))
