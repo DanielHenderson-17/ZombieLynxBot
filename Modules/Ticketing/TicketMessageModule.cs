@@ -22,6 +22,7 @@ public class TicketMessageModule
 
     private async Task HandleMessageReceived(SocketMessage rawMessage)
     {
+        Console.WriteLine($"📩 Received message in {rawMessage.Channel.Name} from {rawMessage.Author.Username}");
         if (rawMessage is not SocketUserMessage message || message.Author.IsBot || message.Channel is not SocketTextChannel channel)
             return;
 

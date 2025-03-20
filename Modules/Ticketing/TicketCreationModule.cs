@@ -112,6 +112,7 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
         // ✅ Send a message in the new channel
         var embed = new EmbedBuilder()
          .WithTitle($"🎫 Ticket #{newTicket.Id} - {char.ToUpper(newTicket.Subject[0])}{newTicket.Subject.Substring(1)}")
+         .WithAuthor(Context.User.Username, Context.User.GetAvatarUrl())
          .WithDescription("--------------------------------------\n")
          .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
          .AddField("📂 **Category**", $"{newTicket.Category}", inline: false)
@@ -261,7 +262,7 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             var content = System.Net.WebUtility.HtmlEncode(msg.Content);
 
             messagesHtml += $@"
-        <div class='message'>
+            <div class='message'>
             <div class='timestamp'>{timestamp}</div>
             <div class='username'>{user}</div>
             <div class='content'>{content}</div>";
