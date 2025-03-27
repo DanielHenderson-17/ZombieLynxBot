@@ -155,11 +155,19 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
     [ComponentInteraction("close_ticket_*")]
     public async Task HandleCloseTicket(string customId)
     {
+
         // ✅ Extract the Ticket ID from the button's custom ID
         string ticketIdString = customId.Replace("close_ticket_", "");
         if (!int.TryParse(ticketIdString, out int ticketId))
         {
             await RespondAsync("❌ Invalid ticket ID.", ephemeral: true);
+            return;
+        }
+
+        var ticket = _ticketHandler.GetTicketById(ticketId);
+        if (ticket == null)
+        {
+            await RespondAsync("❌ Ticket not found.", ephemeral: true);
             return;
         }
 
@@ -180,22 +188,29 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
         // ✅ Send a closing embed in the transcript log channel
         ulong transcriptChannelId = Convert.ToUInt64(Program.Config.TranscriptLogChannel);
         var transcriptChannel = Context.Client.GetChannel(transcriptChannelId) as SocketTextChannel;
+        var ticketOwner = await Context.Client.GetUserAsync(ticket.DiscordUserId ?? 0);
+        var centralTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time"));
 
         if (transcriptChannel != null)
         {
             var embed = new EmbedBuilder()
-                .WithAuthor(Context.User.Username + "#" + Context.User.Discriminator, Context.User.GetAvatarUrl())
+                .WithAuthor($"{ticketOwner?.Username}#{ticketOwner?.Discriminator}", ticketOwner?.GetAvatarUrl())
                 .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
                 .WithColor(new Color(46, 204, 113))
-                .AddField("Ticket Owner", $"<@{Context.User.Id}>", true)
+                .AddField("Ticket Closed By", $"<@{Context.User.Id}>", true)
                 .AddField("Ticket Name", $"Ticket-{ticketId}", true)
-                .AddField("Panel Name", "Help!", true)
-                .AddField("🔒 Closed At", DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss"), false)
+                .AddField("Panel Name", "@Help!", true)
+                .AddField("Subject", ticket.Subject, true)
+                .AddField("Category", ticket.Category, true)
+                .AddField("Game", ticket.Game, true)
+                .AddField("🔒 Closed At", $"{centralTime:yyyy-MM-dd hh:mm tt} CST", false)
                 .WithFooter("Closed Ticket Archive")
                 .WithCurrentTimestamp();
 
             var components = new ComponentBuilder()
-                .WithButton("📜 Transcript", $"transcript_{ticketId}", ButtonStyle.Primary);
+                .WithButton("📜 Transcript", $"transcript_{ticketId}", ButtonStyle.Primary)
+                .WithButton("🔓 Reopen Ticket", $"reopen_ticket_{ticketId}", ButtonStyle.Success);
+
 
             await transcriptChannel.SendMessageAsync(embed: embed.Build(), components: components.Build());
         }
@@ -216,6 +231,30 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             Console.WriteLine("❌ Error: Tried to delete a non-text channel.");
         }
     }
+
+    [ComponentInteraction("reopen_ticket_*")]
+    public async Task HandleReopenTicket(string customId)
+    {
+        await DeferAsync();
+
+        string ticketIdString = customId.Replace("reopen_ticket_", "");
+        if (!int.TryParse(ticketIdString, out int ticketId))
+        {
+            await FollowupAsync("❌ Invalid ticket ID.", ephemeral: true);
+            return;
+        }
+
+        var ticketChannelManager = new TicketChannelManager(Context.Client as DiscordSocketClient);
+        await ticketChannelManager.HandleTicketReopen(ticketId);
+
+        if (Context.Interaction is SocketMessageComponent component)
+        {
+            await component.Message.DeleteAsync();
+        }
+
+        await FollowupAsync($"🔓 Ticket #{ticketId} has been reopened!", ephemeral: true);
+    }
+
     [ComponentInteraction("transcript_*")]
     public async Task HandleTranscriptButton(string customId)
     {

@@ -70,7 +70,7 @@ public class TicketMessageModule
                 DiscordUserId = message.Author.Id,
                 DiscordUserName = message.Author.Username,
                 DiscordImgUrl = discordAvatarUrl,
-                Content = formattedContent, // ✅ Store the fixed content
+                Content = formattedContent,
                 CreatedAt = message.Timestamp.UtcDateTime,
                 ImgUrlsJson = System.Text.Json.JsonSerializer.Serialize(imgUrls),
                 SentToDiscord = true

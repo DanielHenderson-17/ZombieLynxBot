@@ -10,6 +10,12 @@ public class TicketHandler
         _dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider);
     }
 
+    public Ticket? GetTicketById(int ticketId)
+    {
+        return _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+    }
+
+
     public async Task<Ticket> CreateTicketAsync(
     string subject,
     string category,

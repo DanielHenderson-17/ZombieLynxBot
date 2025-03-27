@@ -35,32 +35,15 @@ public class TicketChannelManager
             return;
         }
 
-        // 🆕 Ensure the category ID is retrieved correctly
+        // Get the category ID
         ulong? categoryId = null;
-
         if (Program.Config.SupportCategory.TryGetValue("🔥 General 🔥", out string categoryIdStr) &&
             ulong.TryParse(categoryIdStr, out ulong parsedCategoryId))
         {
             categoryId = parsedCategoryId;
-            Console.WriteLine($"ℹ️ Retrieved Category ID: {categoryId}");
-        }
-        else
-        {
-            Console.WriteLine("⚠️ No valid category ID found in config.");
         }
 
-
-        // 🛠 Verify the bot can find the category in Discord
         var categoryChannel = guild.CategoryChannels.FirstOrDefault(c => c.Id == categoryId);
-
-        if (categoryChannel == null)
-        {
-            Console.WriteLine("⚠️ Category for tickets not found! Channel will be created without a category.");
-        }
-        else
-        {
-            Console.WriteLine($"✅ Found ticket category: {categoryChannel.Name}");
-        }
 
         // Retrieve the ticket from the database
         var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
@@ -69,46 +52,51 @@ public class TicketChannelManager
             Console.WriteLine($"❌ Ticket #{ticketId} not found in the database.");
             return;
         }
+        // ✅ Set status back to Open
+        ticket.Status = "Open";
+        ticket.UpdatedAt = DateTime.UtcNow;
+        await _dbContext.SaveChangesAsync();
 
-        // Retrieve the necessary role IDs from config
         var supportRoleId = Convert.ToUInt64(Program.Config.SupportRole["Help!"]);
 
-        // 🆕 Create the ticket channel under the found category with correct permissions
+        // ✅ Create the ticket channel
         var newRestChannel = await guild.CreateTextChannelAsync(channelName, options =>
         {
             options.CategoryId = categoryChannel?.Id;
             options.Topic = $"Ticket #{ticketId}";
             options.PermissionOverwrites = new System.Collections.Generic.List<Overwrite>
             {
-        // ❌ Deny @everyone from seeing the ticket
-        new Overwrite(guild.EveryoneRole.Id, PermissionTarget.Role, new OverwritePermissions(viewChannel: PermValue.Deny)),
-
-        // ✅ Allow the ticket creator to view and send messages
-        new Overwrite(ticket.DiscordUserId ?? 0, PermissionTarget.User, new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Allow)),
-
-        // ✅ Allow the Help! role to see and send messages
-        new Overwrite(supportRoleId, PermissionTarget.Role, new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Allow))
+            new Overwrite(guild.EveryoneRole.Id, PermissionTarget.Role, new OverwritePermissions(viewChannel: PermValue.Deny)),
+            new Overwrite(ticket.DiscordUserId ?? 0, PermissionTarget.User, new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Allow)),
+            new Overwrite(supportRoleId, PermissionTarget.Role, new OverwritePermissions(viewChannel: PermValue.Allow, sendMessages: PermValue.Allow))
             };
         });
 
-
-        // ✅ Convert RestTextChannel to SocketTextChannel
         var newChannel = guild.GetTextChannel(newRestChannel.Id);
-
         if (newChannel == null)
         {
             Console.WriteLine($"⚠️ Failed to retrieve newly created channel {channelName}.");
             return;
         }
 
-        Console.WriteLine($"✅ Created new channel {newChannel.Name} in category {categoryChannel?.Name ?? "None"}.");
+        Console.WriteLine($"✅ Created new channel {newChannel.Name}.");
 
-        // 📩 Send the ticket embed with close button
+        // ✅ Send the ticket embed
         await SendTicketEmbed(ticketId, newChannel);
 
-        // 🔄 Load messages for this ticket
-        await LoadMessagesToChannel(ticketId, newChannel);
+        // ✅ Generate the transcript file
+        var transcriptFile = await GenerateTranscript(ticketId);
+        if (transcriptFile == null)
+        {
+            await newChannel.SendMessageAsync("❌ Failed to generate the transcript. Contact an admin.");
+            return;
+        }
 
+        // ✅ Send the transcript with a message
+        await newChannel.SendFileAsync(transcriptFile, $"Ticket#{ticketId} Transcript");
+
+        // ✅ Delete temp transcript file after sending
+        File.Delete(transcriptFile);
     }
 
     private async Task SendTicketEmbed(int ticketId, SocketTextChannel channel)
@@ -120,13 +108,16 @@ public class TicketChannelManager
             return;
         }
 
-        var user = ticket.DiscordUserId.HasValue ? _client.GetUser(ticket.DiscordUserId.Value) : null;
-        string userAvatar = user?.GetAvatarUrl(ImageFormat.Png, 256) ?? "https://i.imgur.com/dnlokbX.png";
+        // ✅ Fetch the Discord user from their ID (supports users not in cache)
+        var user = ticket.DiscordUserId.HasValue
+            ? await _client.Rest.GetUserAsync(ticket.DiscordUserId.Value)
+            : null;
 
         var embed = new EmbedBuilder()
             .WithTitle($"🎫 Ticket #{ticket.Id} - {char.ToUpper(ticket.Subject[0])}{ticket.Subject.Substring(1)}")
+            .WithAuthor(user?.Username ?? "Unknown", user?.GetAvatarUrl(ImageFormat.Png, 256) ?? "https://i.imgur.com/dnlokbX.png")
             .WithDescription("--------------------------------------\n")
-            .WithThumbnailUrl(userAvatar)
+            .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
             .AddField("📂 **Category**", $"{ticket.Category}", inline: false)
             .AddField("🎮 **Game**", $"{ticket.Game}", inline: false)
             .AddField("🗺️ **Server**", $"{ticket.Server}", inline: false)
@@ -135,8 +126,8 @@ public class TicketChannelManager
             .WithColor(Color.Green)
             .WithFooter(footer =>
             {
-                footer.Text = $"Ticket reopened by {user?.Username ?? "Lynx Bot"}";
-                footer.IconUrl = userAvatar;
+                footer.Text = $"Ticket reopened by Lynx Bot";
+                footer.IconUrl = "https://i.imgur.com/dnlokbX.png";
             })
             .WithCurrentTimestamp();
 
@@ -234,5 +225,69 @@ public class TicketChannelManager
         // Ensure URLs are not wrapped in backticks
         return content.Replace("```", "").Trim();
     }
+
+    private async Task<string> GenerateTranscript(int ticketId)
+    {
+        var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+        if (ticket == null)
+        {
+            Console.WriteLine($"❌ Ticket #{ticketId} not found.");
+            return null;
+        }
+
+        var messages = _dbContext.Messages
+            .Where(m => m.MessageGroupId == ticketId)
+            .OrderBy(m => m.CreatedAt)
+            .ToList();
+
+        if (!messages.Any())
+        {
+            Console.WriteLine($"⚠️ No messages found for Ticket #{ticketId}.");
+            return null;
+        }
+
+        string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "transcript_template.html");
+        if (!File.Exists(templatePath))
+        {
+            Console.WriteLine($"❌ Transcript template not found at {templatePath}.");
+            return null;
+        }
+
+        string htmlTemplate = await File.ReadAllTextAsync(templatePath);
+        var messagesHtml = "";
+
+        foreach (var msg in messages)
+        {
+            var timestamp = msg.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss");
+            var user = msg.DiscordUserName ?? "Unknown";
+            var content = System.Net.WebUtility.HtmlEncode(msg.Content);
+
+            messagesHtml += $@"
+        <div class='message'>
+        <div class='timestamp'>{timestamp}</div>
+        <div class='username'>{user}</div>
+        <div class='content'>{content}</div>";
+
+            if (msg.ImgUrls.Any())
+            {
+                foreach (var imgUrl in msg.ImgUrls)
+                {
+                    messagesHtml += $"<img src='{imgUrl}' />";
+                }
+            }
+
+            messagesHtml += "</div>";
+        }
+
+        var finalHtml = htmlTemplate
+            .Replace("{TICKET_ID}", ticketId.ToString())
+            .Replace("{MESSAGES}", messagesHtml);
+
+        string transcriptFilePath = Path.Combine(Path.GetTempPath(), $"ticket-{ticketId}-transcript.html");
+        await File.WriteAllTextAsync(transcriptFilePath, finalHtml);
+
+        return transcriptFilePath;
+    }
+
 
 }
