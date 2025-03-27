@@ -122,6 +122,18 @@ public class TicketMessageSyncService
                     foreach (var ticket in reopenedTickets)
                     {
                         Console.WriteLine($"🔄 Processing reopening for Ticket #{ticket.Id}");
+                        var guild = _client.Guilds.FirstOrDefault();
+                        if (guild != null)
+                        {
+                            string expectedChannelName = $"ticket-{ticket.Id}";
+                            var existingChannel = guild.TextChannels.FirstOrDefault(c => c.Name == expectedChannelName);
+                            if (existingChannel != null)
+                            {
+                                Console.WriteLine($"⛔ Skipping Ticket #{ticket.Id} — channel '{expectedChannelName}' already exists.");
+                                continue;
+                            }
+                        }
+
                         await channelManager.HandleTicketReopen(ticket.Id);
                         Console.WriteLine($"✅ Finished processing Ticket #{ticket.Id}");
                     }

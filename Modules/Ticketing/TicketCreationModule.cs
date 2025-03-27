@@ -203,7 +203,9 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
                 .AddField("Subject", ticket.Subject, true)
                 .AddField("Category", ticket.Category, true)
                 .AddField("Game", ticket.Game, true)
+                .AddField("📜 **Description**", $"```{char.ToUpper(ticket.Description[0])}{ticket.Description.Substring(1)}```", inline: false)
                 .AddField("🔒 Closed At", $"{centralTime:yyyy-MM-dd hh:mm tt} CST", false)
+                .WithImageUrl("https://imgur.com/a/iC7KmOw")
                 .WithFooter("Closed Ticket Archive")
                 .WithCurrentTimestamp();
 
