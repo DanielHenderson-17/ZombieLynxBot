@@ -187,7 +187,7 @@ public class TicketMessageSyncService
                             Console.WriteLine($"🔴 Closing Discord channel for Ticket #{ticket.Id}.");
 
                             // ✅ Send closure message to the channel
-                            await channel.SendMessageAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.");
+                            // await channel.SendMessageAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.");
 
                             // ✅ Wait for 10 seconds before deleting
                             await Task.Delay(10000, cancellationToken);
