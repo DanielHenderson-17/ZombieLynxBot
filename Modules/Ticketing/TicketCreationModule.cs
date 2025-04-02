@@ -217,11 +217,6 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             await transcriptChannel.SendMessageAsync(embed: embed.Build(), components: components.Build());
         }
 
-
-
-        // ✅ Respond to the button press
-        // await RespondAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.", ephemeral: true);
-
         // ✅ Wait 10 seconds before deleting the channel
         await Task.Delay(10000);
         if (Context.Channel is SocketTextChannel ticketChannel)
