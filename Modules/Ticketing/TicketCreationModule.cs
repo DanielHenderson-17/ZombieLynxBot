@@ -220,7 +220,7 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
 
 
         // ✅ Respond to the button press
-        await RespondAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.", ephemeral: true);
+        // await RespondAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.", ephemeral: true);
 
         // ✅ Wait 10 seconds before deleting the channel
         await Task.Delay(10000);
