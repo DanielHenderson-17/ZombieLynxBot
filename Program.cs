@@ -41,6 +41,7 @@ class Program
             .AddSingleton(_config)
             .AddSingleton<SuggestionHandler>()
             .AddSingleton<SuggestionExpirationService>()
+            .AddSingleton<TimeoutMonitorService>()
             .BuildServiceProvider();
 
         _client.Log += LogAsync;
@@ -51,6 +52,8 @@ class Program
 
         await _client.LoginAsync(TokenType.Bot, _config.Token);
         await _client.StartAsync();
+
+        _ = _services.GetRequiredService<TimeoutMonitorService>();
 
         // ✅ Register commands after bot is ready
         _client.Ready += RegisterCommandsAsync;
@@ -125,28 +128,6 @@ class Program
         var context = new SocketInteractionContext(_client, interaction);
         await _commands.ExecuteCommandAsync(context, _services);
     }
-
-    public class BotConfig
-    {
-        public string Token { get; set; }
-        public string TranscriptLogChannel { get; set; }
-        public string GuildId { get; set; }
-        public Dictionary<string, string[]> GameServers { get; set; }
-
-        public TicketsDbConfig TicketsDb { get; set; }
-        public string SupportChannelId { get; set; }
-        public Dictionary<string, string> SupportRole { get; set; }
-        public Dictionary<string, string> SupportCategory { get; set; }
-        public Dictionary<string, string> SuggestionsChannels { get; set; }
-        public string AdminRole { get; set; }
-    }
-
-    public class TicketsDbConfig
-    {
-        public string ConnectionString { get; set; }
-        public string Provider { get; set; }
-    }
-
     private async Task HandleReactionAdded(Cacheable<IUserMessage, ulong> messageCache, Cacheable<IMessageChannel, ulong> channelCache, SocketReaction reaction)
     {
         var handler = _services.GetRequiredService<SuggestionHandler>();
