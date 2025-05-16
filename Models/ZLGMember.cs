@@ -41,6 +41,11 @@ public class ZLGMember
 
     [MaxLength(250)]
     public string? MinecraftAvatarUrl { get; set; }
+    public int Points { get; set; } = 0;
+
+    [MaxLength(250)]
+    public string? TimedPermissionGroups { get; set; }
+
 
     [Required]
     public int UserProfileId { get; set; }
