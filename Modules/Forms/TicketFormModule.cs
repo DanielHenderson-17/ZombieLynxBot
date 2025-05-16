@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Serilog;
 
 public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
 {
@@ -75,8 +76,8 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
             _ => game
         };
 
-        Console.WriteLine($"🔍 Debug: Category - {category}");
-        Console.WriteLine($"🔍 Debug: Selected Game - {game}");
+        Log.Information($"🔍 Debug: Category - {category}");
+        Log.Information($"🔍 Debug: Selected Game - {game}");
 
         // Get servers from BotConfig
         var servers = Program.Config.GameServers.TryGetValue(game, out var serverList) ? serverList : new[] { "Other" };
@@ -89,7 +90,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
         {
             // Encode category and game into the value
             selectMenu.AddOption(server, $"{category}|{game}|{server.Replace("|", "~~")}");
-            Console.WriteLine($"✅ Debug: Added Server - {server}");
+            Log.Information($"✅ Debug: Added Server - {server}");
         }
 
         var component = new ComponentBuilder().WithSelectMenu(selectMenu).Build();
@@ -107,14 +108,14 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
     {
         try
         {
-            Console.WriteLine($"🔍 Debug: Received Interaction - select_ticket_server");
-            Console.WriteLine($"🔍 Debug: Selected Value - {selectedValue}");
+            Log.Information($"🔍 Debug: Received Interaction - select_ticket_server");
+            Log.Information($"🔍 Debug: Selected Value - {selectedValue}");
 
             // Parse the encoded value
             var parts = selectedValue.Split('|');
             if (parts.Length < 3)
             {
-                Console.WriteLine($"❌ Error: Invalid value format - {selectedValue}");
+                Log.Information($"❌ Error: Invalid value format - {selectedValue}");
                 await RespondAsync("❌ An error occurred while processing your request. Please try again.", ephemeral: true);
                 return;
             }
@@ -131,9 +132,9 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
                 _ => game
             };
 
-            Console.WriteLine($"🔍 Debug: Parsed Category - {category}");
-            Console.WriteLine($"🔍 Debug: Parsed Game - {game}");
-            Console.WriteLine($"🔍 Debug: Parsed Server - {server}");
+            Log.Information($"🔍 Debug: Parsed Category - {category}");
+            Log.Information($"🔍 Debug: Parsed Game - {game}");
+            Log.Information($"🔍 Debug: Parsed Server - {server}");
 
             var modal = new ModalBuilder()
                 .WithTitle("Create a Ticket")
@@ -158,7 +159,7 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Exception in OpenTicketFormFinal: {ex}");
+            Log.Information($"❌ Exception in OpenTicketFormFinal: {ex}");
             await RespondAsync("❌ An unexpected error occurred. Please try again later.", ephemeral: true);
         }
     }

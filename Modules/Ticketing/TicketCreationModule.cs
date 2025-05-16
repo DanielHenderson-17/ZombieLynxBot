@@ -5,6 +5,7 @@ using System.IO;
 using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
+using Serilog;
 
 public class TicketModal : IModal
 {
@@ -45,7 +46,7 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
     {
         await DeferAsync(); // Avoid interaction timeout
 
-        Console.WriteLine($"🎫 Creating ticket for {Context.User.Username}...");
+        Log.Information($"🎫 Creating ticket for {Context.User.Username}...");
 
         // ✅ Save the ticket in the database
         var newTicket = await _ticketHandler.CreateTicketAsync(
@@ -58,13 +59,13 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
             Context.User.Username
         );
 
-        Console.WriteLine($"✅ Ticket {newTicket.Id} created in DB.");
+        Log.Information($"✅ Ticket {newTicket.Id} created in DB.");
 
         // ✅ Get the Guild & Config Settings
         var guild = (Context.Client as DiscordSocketClient)?.GetGuild(Context.Guild.Id);
         if (guild == null)
         {
-            Console.WriteLine("❌ Error: Guild not found.");
+            Log.Information("❌ Error: Guild not found.");
             await FollowupAsync("An error occurred while creating your ticket. Please contact an admin.", ephemeral: true);
             return;
         }
@@ -80,7 +81,7 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
         var categoryChannel = guild.GetCategoryChannel(supportCategoryId);
         if (categoryChannel == null)
         {
-            Console.WriteLine("❌ Error: Support category not found.");
+            Log.Information("❌ Error: Support category not found.");
             await FollowupAsync("An error occurred while creating your ticket. Please contact an admin.", ephemeral: true);
             return;
         }
@@ -103,7 +104,7 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
             };
         });
 
-        Console.WriteLine($"✅ Created channel {ticketChannel.Name} ({ticketChannel.Id})");
+        Log.Information($"✅ Created channel {ticketChannel.Name} ({ticketChannel.Id})");
 
         // ✅ Update the Ticket in Database
         await _ticketHandler.UpdateTicketWithChannelId(newTicket.Id, ticketChannel.Id);
@@ -171,7 +172,7 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             return;
         }
 
-        Console.WriteLine($"🔍 Closing Ticket #{ticketId}");
+        Log.Information($"🔍 Closing Ticket #{ticketId}");
 
         // ✅ Update the ticket in the database
         bool updated = await _ticketHandler.CloseTicketAsync(ticketId);
@@ -225,7 +226,7 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
         }
         else
         {
-            Console.WriteLine("❌ Error: Tried to delete a non-text channel.");
+            Log.Information("❌ Error: Tried to delete a non-text channel.");
         }
     }
 

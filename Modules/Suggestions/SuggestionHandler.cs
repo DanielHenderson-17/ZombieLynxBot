@@ -2,6 +2,7 @@ using Discord;
 using Discord.Interactions;
 using Discord.WebSocket;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace ZombieLynxBot.Suggestions
 {
@@ -134,7 +135,7 @@ namespace ZombieLynxBot.Suggestions
             // ⛔ If the message is already locked, remove all reactions
             if (LockedMessages.Contains(message.Id))
             {
-                Console.WriteLine($"⛔ Message {message.Id} is already locked. Removing reaction: {reaction.Emote.Name}");
+                Log.Information($"⛔ Message {message.Id} is already locked. Removing reaction: {reaction.Emote.Name}");
                 await message.RemoveReactionAsync(reaction.Emote, user);
                 return;
             }
@@ -163,7 +164,7 @@ namespace ZombieLynxBot.Suggestions
             var vetoEmoji = new Emoji("🚫");
 
             LockedMessages.Add(message.Id);
-            Console.WriteLine($"🚫 Suggestion {message.Id} was vetoed by {user.Username}");
+            Log.Information($"🚫 Suggestion {message.Id} was vetoed by {user.Username}");
 
             // ✅ Remove the admin's 🚫 reaction first
             await message.RemoveReactionAsync(reaction.Emote, user);
@@ -221,7 +222,7 @@ namespace ZombieLynxBot.Suggestions
             var totalVotes = upvoteCount + downvoteCount;
 
             LockedMessages.Add(message.Id);
-            Console.WriteLine($"🔒 Auto-locking expired suggestion: {message.Id}");
+            Log.Information($"🔒 Auto-locking expired suggestion: {message.Id}");
             await message.AddReactionAsync(lockEmoji);
 
             // ✅ Get the correct suggester's ID from our dictionary
