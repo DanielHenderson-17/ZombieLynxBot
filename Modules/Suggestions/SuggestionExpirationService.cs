@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace ZombieLynxBot.Suggestions
 {
@@ -23,7 +24,7 @@ namespace ZombieLynxBot.Suggestions
         {
             while (!cancellationToken.IsCancellationRequested)
             {
-                Console.WriteLine("🔍 Checking for expired suggestions...");
+                Log.Information("🔍 Checking for expired suggestions...");
                 await CheckExpiredSuggestions();
                 await Task.Delay(_checkInterval, cancellationToken);
             }
@@ -52,7 +53,7 @@ namespace ZombieLynxBot.Suggestions
                         var voteCloseTime = DateTimeOffset.FromUnixTimeSeconds(unixTime.Value);
                         if (voteCloseTime <= DateTimeOffset.UtcNow)
                         {
-                            Console.WriteLine($"⏳ Locking expired suggestion: {message.Id}");
+                            Log.Information($"⏳ Locking expired suggestion: {message.Id}");
                             await _suggestionHandler.LockSuggestionAsync(message);
                         }
                     }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 public class TicketMessageSyncService
 {
@@ -43,7 +44,7 @@ public class TicketMessageSyncService
                     var channel = guild.TextChannels.FirstOrDefault(c => c.Name == channelName);
                     if (channel == null)
                     {
-                        Console.WriteLine($"⚠️ Ticket channel '{channelName}' not found!");
+                        Log.Information($"⚠️ Ticket channel '{channelName}' not found!");
                         continue;
                     }
 
@@ -77,7 +78,7 @@ public class TicketMessageSyncService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error syncing messages: {ex.Message}");
+                Log.Information($"❌ Error syncing messages: {ex.Message}");
             }
 
             await Task.Delay(5000);
@@ -111,17 +112,17 @@ public class TicketMessageSyncService
             {
                 using (var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider))
                 {
-                    Console.WriteLine("🔍 Checking for reopened tickets...");
+                    Log.Information("🔍 Checking for reopened tickets...");
 
                     var reopenedTickets = _dbContext.Tickets
                         .Where(t => t.Status == "Open")
                         .ToList();
 
-                    Console.WriteLine($"🔍 Checking for reopened tickets... Found {reopenedTickets.Count}");
+                    Log.Information($"🔍 Checking for reopened tickets... Found {reopenedTickets.Count}");
 
                     foreach (var ticket in reopenedTickets)
                     {
-                        Console.WriteLine($"🔄 Processing reopening for Ticket #{ticket.Id}");
+                        Log.Information($"🔄 Processing reopening for Ticket #{ticket.Id}");
                         var guild = _client.Guilds.FirstOrDefault();
                         if (guild != null)
                         {
@@ -129,24 +130,24 @@ public class TicketMessageSyncService
                             var existingChannel = guild.TextChannels.FirstOrDefault(c => c.Name == expectedChannelName);
                             if (existingChannel != null)
                             {
-                                Console.WriteLine($"⛔ Skipping Ticket #{ticket.Id} — channel '{expectedChannelName}' already exists.");
+                                Log.Information($"⛔ Skipping Ticket #{ticket.Id} — channel '{expectedChannelName}' already exists.");
                                 continue;
                             }
                         }
 
                         await channelManager.HandleTicketReopen(ticket.Id);
-                        Console.WriteLine($"✅ Finished processing Ticket #{ticket.Id}");
+                        Log.Information($"✅ Finished processing Ticket #{ticket.Id}");
                     }
 
 
                     if (reopenedTickets.Any())
                     {
-                        Console.WriteLine($"✅ Found {reopenedTickets.Count} reopened tickets: " +
+                        Log.Information($"✅ Found {reopenedTickets.Count} reopened tickets: " +
                             string.Join(", ", reopenedTickets.Select(t => t.Id)));
                     }
                     else
                     {
-                        Console.WriteLine("⚠️ No reopened tickets found.");
+                        Log.Information("⚠️ No reopened tickets found.");
                     }
 
                 }
@@ -154,7 +155,7 @@ public class TicketMessageSyncService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error checking reopened tickets: {ex.Message}");
+                Log.Information($"❌ Error checking reopened tickets: {ex.Message}");
             }
 
             await Task.Delay(10000); // Check every 10 seconds
@@ -169,13 +170,13 @@ public class TicketMessageSyncService
             {
                 using (var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider))
                 {
-                    Console.WriteLine("🔍 Checking for closed tickets...");
+                    Log.Information("🔍 Checking for closed tickets...");
 
                     var closedTickets = dbContext.Tickets
                         .Where(t => t.Status == "Closed" && t.DiscordChannelId != null)
                         .ToList();
 
-                    Console.WriteLine($"🔍 Found {closedTickets.Count} closed tickets.");
+                    Log.Information($"🔍 Found {closedTickets.Count} closed tickets.");
 
                     foreach (var ticket in closedTickets)
                     {
@@ -184,7 +185,7 @@ public class TicketMessageSyncService
 
                         if (channel != null)
                         {
-                            Console.WriteLine($"🔴 Closing Discord channel for Ticket #{ticket.Id}.");
+                            Log.Information($"🔴 Closing Discord channel for Ticket #{ticket.Id}.");
 
                             // ✅ Send closure message to the channel
                             await channel.SendMessageAsync("✅ Ticket has been closed. The channel will be deleted in 10 seconds.");
@@ -196,7 +197,7 @@ public class TicketMessageSyncService
                         }
                         else
                         {
-                            Console.WriteLine($"⚠️ Could not find Discord channel {channelId} for Ticket #{ticket.Id}.");
+                            Log.Information($"⚠️ Could not find Discord channel {channelId} for Ticket #{ticket.Id}.");
                         }
 
                         // ✅ Remove the DiscordChannelId from the ticket to mark it as processed
@@ -207,7 +208,7 @@ public class TicketMessageSyncService
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"❌ Error checking closed tickets: {ex.Message}");
+                Log.Information($"❌ Error checking closed tickets: {ex.Message}");
             }
 
             await Task.Delay(10000); // Check every 10 seconds

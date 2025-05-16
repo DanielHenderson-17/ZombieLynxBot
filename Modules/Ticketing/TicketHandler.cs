@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Serilog;
 
 public class TicketHandler
 {
@@ -32,7 +33,7 @@ public class TicketHandler
 
             if (member == null)
             {
-                Console.WriteLine($"❌ No ZLGMember found for Discord ID {discordUserId}. Creating a ticket WITHOUT user assignment.");
+                Log.Information($"❌ No ZLGMember found for Discord ID {discordUserId}. Creating a ticket WITHOUT user assignment.");
 
                 // ✅ Create a ticket with NO UserProfileId
                 var ticketWithoutUser = new Ticket
@@ -52,7 +53,7 @@ public class TicketHandler
                 _dbContext.Tickets.Add(ticketWithoutUser);
                 await _dbContext.SaveChangesAsync();
 
-                Console.WriteLine($"✅ Ticket {ticketWithoutUser.Id} saved (NO user linked).");
+                Log.Information($"✅ Ticket {ticketWithoutUser.Id} saved (NO user linked).");
                 return ticketWithoutUser;
             }
 
@@ -85,15 +86,15 @@ public class TicketHandler
             _dbContext.UserTickets.Add(userTicket);
             await _dbContext.SaveChangesAsync();
 
-            Console.WriteLine($"✅ Ticket {newTicket.Id} successfully saved in DB and assigned to user.");
+            Log.Information($"✅ Ticket {newTicket.Id} successfully saved in DB and assigned to user.");
             return newTicket;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Error saving ticket: {ex.Message}");
+            Log.Information($"❌ Error saving ticket: {ex.Message}");
             if (ex.InnerException != null)
             {
-                Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
+                Log.Information($"🔍 Inner Exception: {ex.InnerException.Message}");
             }
             throw;
         }
@@ -105,7 +106,7 @@ public class TicketHandler
             var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
             if (ticket == null)
             {
-                Console.WriteLine($"❌ Ticket with ID {ticketId} not found.");
+                Log.Information($"❌ Ticket with ID {ticketId} not found.");
                 return;
             }
 
@@ -113,14 +114,14 @@ public class TicketHandler
             ticket.UpdatedAt = DateTime.UtcNow;
 
             await _dbContext.SaveChangesAsync();
-            Console.WriteLine($"✅ Ticket {ticketId} updated with Discord Channel ID: {channelId}");
+            Log.Information($"✅ Ticket {ticketId} updated with Discord Channel ID: {channelId}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Error updating ticket: {ex.Message}");
+            Log.Information($"❌ Error updating ticket: {ex.Message}");
             if (ex.InnerException != null)
             {
-                Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
+                Log.Information($"🔍 Inner Exception: {ex.InnerException.Message}");
             }
         }
     }

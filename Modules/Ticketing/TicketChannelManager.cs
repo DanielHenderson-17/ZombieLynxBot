@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 public class TicketChannelManager
 {
@@ -21,7 +22,7 @@ public class TicketChannelManager
         var guild = _client.Guilds.FirstOrDefault();
         if (guild == null)
         {
-            Console.WriteLine("❌ No guild found!");
+            Log.Information("❌ No guild found!");
             return;
         }
 
@@ -31,7 +32,7 @@ public class TicketChannelManager
         // ✅ If channel already exists, do nothing
         if (existingChannel != null)
         {
-            Console.WriteLine($"✅ Channel {channelName} already exists.");
+            Log.Information($"✅ Channel {channelName} already exists.");
             return;
         }
 
@@ -49,7 +50,7 @@ public class TicketChannelManager
         var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
         if (ticket == null)
         {
-            Console.WriteLine($"❌ Ticket #{ticketId} not found in the database.");
+            Log.Information($"❌ Ticket #{ticketId} not found in the database.");
             return;
         }
         // ✅ Set status back to Open
@@ -75,11 +76,11 @@ public class TicketChannelManager
         var newChannel = guild.GetTextChannel(newRestChannel.Id);
         if (newChannel == null)
         {
-            Console.WriteLine($"⚠️ Failed to retrieve newly created channel {channelName}.");
+            Log.Information($"⚠️ Failed to retrieve newly created channel {channelName}.");
             return;
         }
 
-        Console.WriteLine($"✅ Created new channel {newChannel.Name}.");
+        Log.Information($"✅ Created new channel {newChannel.Name}.");
 
         // ✅ Send the ticket embed
         await SendTicketEmbed(ticketId, newChannel);
@@ -104,7 +105,7 @@ public class TicketChannelManager
         var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
         if (ticket == null)
         {
-            Console.WriteLine($"❌ Ticket #{ticketId} not found in the database.");
+            Log.Information($"❌ Ticket #{ticketId} not found in the database.");
             return;
         }
 
@@ -146,11 +147,11 @@ public class TicketChannelManager
 
         if (!messages.Any())
         {
-            Console.WriteLine($"⚠️ No messages found for Ticket #{ticketId}.");
+            Log.Information($"⚠️ No messages found for Ticket #{ticketId}.");
             return;
         }
 
-        Console.WriteLine($"📥 Preparing {messages.Count} messages for Ticket #{ticketId}.");
+        Log.Information($"📥 Preparing {messages.Count} messages for Ticket #{ticketId}.");
 
         var messageChunks = new List<string>();
         var currentBatch = new List<string>();
@@ -203,7 +204,7 @@ public class TicketChannelManager
             await Task.Delay(500);
         }
 
-        Console.WriteLine($"✅ Sent {messageChunks.Count} message batches for Ticket #{ticketId}.");
+        Log.Information($"✅ Sent {messageChunks.Count} message batches for Ticket #{ticketId}.");
     }
 
     private static string CapitalizeFirstLetter(string input)
@@ -231,7 +232,7 @@ public class TicketChannelManager
         var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
         if (ticket == null)
         {
-            Console.WriteLine($"❌ Ticket #{ticketId} not found.");
+            Log.Information($"❌ Ticket #{ticketId} not found.");
             return null;
         }
 
@@ -242,14 +243,14 @@ public class TicketChannelManager
 
         if (!messages.Any())
         {
-            Console.WriteLine($"⚠️ No messages found for Ticket #{ticketId}.");
+            Log.Information($"⚠️ No messages found for Ticket #{ticketId}.");
             return null;
         }
 
         string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "transcript_template.html");
         if (!File.Exists(templatePath))
         {
-            Console.WriteLine($"❌ Transcript template not found at {templatePath}.");
+            Log.Information($"❌ Transcript template not found at {templatePath}.");
             return null;
         }
 

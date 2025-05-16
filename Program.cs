@@ -8,6 +8,9 @@ using Discord.Interactions;
 using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using ZombieLynxBot.Suggestions;
+using Serilog;
+using Microsoft.Extensions.Configuration;
+
 
 
 class Program
@@ -23,7 +26,19 @@ class Program
 
     public async Task RunBotAsync()
     {
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
+
+        Log.Information("🟢 Bot is starting...");
+
         LoadConfig();
+
 
         _client = new DiscordSocketClient(new DiscordSocketConfig
         {
@@ -42,7 +57,10 @@ class Program
             .AddSingleton<SuggestionHandler>()
             .AddSingleton<SuggestionExpirationService>()
             .AddSingleton<TimeoutMonitorService>()
+            .AddScoped<TicketDbContext>(provider =>
+                new TicketDbContext(Config.TicketsDb.ConnectionString, Config.TicketsDb.Provider))
             .BuildServiceProvider();
+
 
         _client.Log += LogAsync;
         _client.Ready += ReadyAsync;
@@ -52,20 +70,17 @@ class Program
 
         await _client.LoginAsync(TokenType.Bot, _config.Token);
         await _client.StartAsync();
-        
+
         _ = _services.GetRequiredService<TimeoutMonitorService>();
 
-        // ✅ Register commands after bot is ready
         _client.Ready += RegisterCommandsAsync;
 
-
-        // ✅ Initialize the Ticket Message Tracking Module
         new TicketMessageModule(_client);
 
-        // ✅ Initialize the Ticket Message Syncing Service
         new TicketMessageSyncService(_client);
 
-        await Task.Delay(-1); // ⬅️ This should always be at the very end.
+        AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();
+        await Task.Delay(-1);
     }
 
     private void LoadConfig()
@@ -73,40 +88,34 @@ class Program
         var configText = File.ReadAllText("botconfig.json");
         _config = JsonSerializer.Deserialize<BotConfig>(configText);
 
-        // Ensure GuildId is properly set
         if (string.IsNullOrWhiteSpace(_config.GuildId))
         {
-            Console.WriteLine("❌ GuildId is missing or invalid in botconfig.json!");
+            Log.Information("❌ GuildId is missing or invalid in botconfig.json!");
         }
 
-        // Set the global Config property
         Config = _config;
     }
 
     private async Task LogAsync(LogMessage log)
     {
-        Console.WriteLine(log);
+        Log.Information(log.ToString());
     }
 
     private async Task ReadyAsync()
     {
-        Console.WriteLine($"✅ Logged in as {_client.CurrentUser.Username}");
+        Log.Information($"✅ Logged in as {_client.CurrentUser.Username}");
 
         try
         {
             using var dbContext = new TicketDbContext(Config.TicketsDb.ConnectionString, Config.TicketsDb.Provider);
             dbContext.Database.EnsureCreated();
-            Console.WriteLine("✅ Successfully connected to PostgreSQL database.");
+            Log.Information("✅ Successfully connected to PostgreSQL database.");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Database connection failed: {ex.Message}");
+            Log.Information($"❌ Database connection failed: {ex.Message}");
         }
-
-        // ✅ Initialize the Ticket Message Tracking Module
         new TicketMessageModule(_client);
-
-        // ✅ Start the SuggestionExpirationService in the background
         var expirationService = _services.GetRequiredService<SuggestionExpirationService>();
         _ = Task.Run(() => expirationService.StartAsync(CancellationToken.None));
     }
@@ -115,12 +124,12 @@ class Program
     private async Task RegisterCommandsAsync()
     {
         await _commands.AddModulesAsync(typeof(Program).Assembly, _services);
-        Console.WriteLine("✅ Commands and interactions loaded.");
+        Log.Information("✅ Commands and interactions loaded.");
         foreach (var guild in _client.Guilds)
         {
             await _commands.RegisterCommandsToGuildAsync(guild.Id, true);
         }
-        Console.WriteLine("✅ Slash commands registered.");
+        Log.Information("✅ Slash commands registered.");
     }
 
     private async Task HandleInteractionAsync(SocketInteraction interaction)

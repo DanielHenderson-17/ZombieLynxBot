@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
+using Serilog;
 
 public class TicketMessageModule
 {
@@ -22,7 +23,6 @@ public class TicketMessageModule
 
     private async Task HandleMessageReceived(SocketMessage rawMessage)
     {
-        Console.WriteLine($"📩 Received message in {rawMessage.Channel.Name} from {rawMessage.Author.Username}");
         if (rawMessage is not SocketUserMessage message || message.Author.IsBot || message.Channel is not SocketTextChannel channel)
             return;
 
@@ -32,7 +32,7 @@ public class TicketMessageModule
         if (!int.TryParse(channel.Name.Replace("ticket-", ""), out int ticketId))
             return;
 
-        Console.WriteLine($"📝 Logging new message in Ticket #{ticketId} from {message.Author.Username}");
+        Log.Information($"📝 Logging new message in Ticket #{ticketId} from {message.Author.Username}");
 
         try
         {
@@ -47,7 +47,7 @@ public class TicketMessageModule
             List<string> imgUrls = message.Attachments.Select(a => a.Url).ToList();
 
             // Debugging: Log extracted image URLs
-            Console.WriteLine($"🖼️ Extracted {imgUrls.Count} images: {string.Join(", ", imgUrls)}");
+            Log.Information($"🖼️ Extracted {imgUrls.Count} images: {string.Join(", ", imgUrls)}");
 
             // Get Discord Avatar URL
             string discordAvatarUrl = message.Author.GetAvatarUrl(ImageFormat.Png, 256) ??
@@ -77,20 +77,20 @@ public class TicketMessageModule
             };
 
             // Debugging - Log message before saving
-            Console.WriteLine($"📝 Saving message: Content='{newMessage.Content}', Images={string.Join(", ", newMessage.ImgUrls)}");
+            Log.Information($"📝 Saving message: Content='{newMessage.Content}', Images={string.Join(", ", newMessage.ImgUrls)}");
 
             // Save to database
             _dbContext.Messages.Add(newMessage);
             await _dbContext.SaveChangesAsync();
-            Console.WriteLine($"✅ Message logged successfully for Ticket #{ticketId}");
+            Log.Information($"✅ Message logged successfully for Ticket #{ticketId}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ Error logging message: {ex.Message}");
+            Log.Information($"❌ Error logging message: {ex.Message}");
 
             if (ex.InnerException != null)
             {
-                Console.WriteLine($"🔍 Inner Exception: {ex.InnerException.Message}");
+                Log.Information($"🔍 Inner Exception: {ex.InnerException.Message}");
             }
         }
     }
@@ -103,7 +103,7 @@ public class TicketMessageModule
         if (!int.TryParse(textChannel.Name.Replace("ticket-", ""), out int ticketId))
             return;
 
-        Console.WriteLine($"✏️ Updating message in Ticket #{ticketId} from {after.Author.Username}");
+        Log.Information($"✏️ Updating message in Ticket #{ticketId} from {after.Author.Username}");
 
         // Find the message in the database
         var existingMessage = _dbContext.Messages.FirstOrDefault(m => m.DiscordMessageId == after.Id);
@@ -125,7 +125,7 @@ public class TicketMessageModule
         if (existingMessage == null)
             return;
 
-        Console.WriteLine($"❌ Deleting message from Ticket #{existingMessage.MessageGroupId}");
+        Log.Information($"❌ Deleting message from Ticket #{existingMessage.MessageGroupId}");
 
         // Remove the message from database
         _dbContext.Messages.Remove(existingMessage);
