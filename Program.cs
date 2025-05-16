@@ -142,5 +142,4 @@ class Program
         var handler = _services.GetRequiredService<SuggestionHandler>();
         await handler.HandleReactionAdded(messageCache, channelCache, reaction);
     }
-
 }
