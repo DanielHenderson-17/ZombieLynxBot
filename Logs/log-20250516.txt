@@ -1,0 +1,199 @@
+[2025-05-16 10:50:56 INF] 🟢 Bot is starting...
+[2025-05-16 10:50:56 INF] 10:50:56 Discord     Discord.Net v3.13.1 (API v10)
+[2025-05-16 10:50:56 INF] 10:50:56 Gateway     Connecting
+[2025-05-16 10:50:56 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:50:56 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:50:56 INF] ❌ Error checking reopened tickets: An attempt was made to use the context instance while it is being configured. A DbContext instance cannot be used inside 'OnConfiguring' since it is still being configured at this point. This can happen if a second operation is started on this context instance before a previous operation completed. Any instance members are not guaranteed to be thread safe.
+[2025-05-16 10:50:56 INF] 10:50:56 Gateway     Connected
+[2025-05-16 10:50:57 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:50:57 INF] ✅ Logged in as Lynx Bot
+[2025-05-16 10:50:57 INF] ✅ Successfully connected to PostgreSQL database.
+[2025-05-16 10:50:57 INF] 🔍 Checking for expired suggestions...
+[2025-05-16 10:50:57 INF] ✅ Commands and interactions loaded.
+[2025-05-16 10:50:58 INF] ✅ Slash commands registered.
+[2025-05-16 10:50:58 INF] 10:50:58 Gateway     Ready
+[2025-05-16 10:51:06 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:51:06 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:51:06 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:51:07 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:51:07 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:51:16 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:51:16 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:51:16 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:51:17 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:51:17 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:51:26 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:51:26 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:51:26 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:51:26 INF] ✅ Created new channel ticket-94.
+[2025-05-16 10:51:27 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:51:27 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:51:27 INF] ⚠️ No messages found for Ticket #94.
+[2025-05-16 10:51:27 INF] ✅ Finished processing Ticket #94
+[2025-05-16 10:51:27 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:51:37 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:51:37 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:51:37 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:51:37 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:51:37 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:51:37 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:51:37 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:51:47 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:51:47 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:51:47 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:51:47 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:51:47 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:51:47 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:51:47 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:51:57 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:51:57 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:51:57 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:51:57 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:51:57 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:51:57 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:51:57 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:52:07 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:52:07 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:52:07 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:52:07 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:52:07 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:52:07 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:52:07 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:52:17 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:52:17 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:52:17 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:52:17 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:52:17 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:52:17 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:52:17 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:52:27 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:52:27 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:52:27 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:52:27 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:52:27 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:52:27 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:52:27 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:52:37 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:52:37 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:52:37 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:52:37 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:52:37 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:52:37 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:52:37 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:52:47 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:52:47 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:52:47 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:52:47 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:52:47 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:52:47 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:52:47 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:52:49 INF] 10:52:49 Gateway     System.Exception: WebSocket connection was closed
+ ---> System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed the WebSocket connection without completing the close handshake.
+   at System.Net.WebSockets.ManagedWebSocket.ThrowEOFUnexpected()
+   at System.Net.WebSockets.ManagedWebSocket.EnsureBufferContainsAsync(Int32 minimumRequiredBytes, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.WebSockets.ManagedWebSocket.ReceiveAsyncPrivate[TResult](Memory`1 payloadBuffer, CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at System.Threading.Tasks.ValueTask`1.ValueTaskSourceAsTask.<>c.<.cctor>b__4_0(Object state)
+--- End of stack trace from previous location ---
+   at Discord.Net.WebSockets.DefaultWebSocketClient.RunAsync(CancellationToken cancelToken)
+   --- End of inner exception stack trace ---
+   at Discord.ConnectionManager.<>c__DisplayClass29_0.<<StartAsync>b__0>d.MoveNext()
+[2025-05-16 10:52:49 INF] 10:52:49 Gateway     Disconnecting
+[2025-05-16 10:52:49 INF] 10:52:49 Gateway     Disconnected
+[2025-05-16 10:52:50 INF] 10:52:50 Gateway     Connecting
+[2025-05-16 10:52:51 INF] 10:52:51 Gateway     Connected
+[2025-05-16 10:52:51 INF] 10:52:51 Gateway     Resumed previous session
+[2025-05-16 10:52:57 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:52:57 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:52:57 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:52:57 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:52:57 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:52:57 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:52:57 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:53:00 INF] 📝 Logging new message in Ticket #94 from danulsan
+[2025-05-16 10:53:00 INF] 🖼️ Extracted 0 images: 
+[2025-05-16 10:53:00 INF] 📝 Saving message: Content='test', Images=
+[2025-05-16 10:53:00 INF] ✅ Message logged successfully for Ticket #94
+[2025-05-16 10:53:00 INF] 📝 Logging new message in Ticket #94 from danulsan
+[2025-05-16 10:53:07 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:53:07 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:53:07 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:53:07 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:53:07 INF] 🔄 Processing reopening for Ticket #94
+[2025-05-16 10:53:07 INF] ⛔ Skipping Ticket #94 — channel 'ticket-94' already exists.
+[2025-05-16 10:53:07 INF] ✅ Found 1 reopened tickets: 94
+[2025-05-16 10:53:13 INF] 🔍 Closing Ticket #94
+[2025-05-16 10:53:17 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:53:17 INF] 🔍 Found 1 closed tickets.
+[2025-05-16 10:53:17 INF] 🔴 Closing Discord channel for Ticket #94.
+[2025-05-16 10:53:17 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:53:17 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:53:17 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:53:27 INF] ❌ Error checking closed tickets: The server responded with error 10003: Unknown Channel
+[2025-05-16 10:53:27 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:53:27 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:53:27 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:53:37 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:53:37 INF] 🔍 Found 1 closed tickets.
+[2025-05-16 10:53:37 INF] ⚠️ Could not find Discord channel 1372964674823524383 for Ticket #94.
+[2025-05-16 10:53:37 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:53:37 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:53:37 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:53:47 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:53:47 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:53:47 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:53:47 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:53:47 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:53:50 INF] 🔍 Debug: Category - Other
+[2025-05-16 10:53:50 INF] 🔍 Debug: Selected Game - SA
+[2025-05-16 10:53:50 INF] ✅ Debug: Added Server - ZombieLynx-TheIsland-3X-PVP
+[2025-05-16 10:53:50 INF] ✅ Debug: Added Server - ZombieLynx-ScorchedEarth-3X-PVPORP
+[2025-05-16 10:53:50 INF] ✅ Debug: Added Server - ZombieLynx-TheCenter-3X-PVP
+[2025-05-16 10:53:50 INF] ✅ Debug: Added Server - ZombieLynx-Aberration-3X-PVPORP
+[2025-05-16 10:53:52 INF] 🔍 Debug: Received Interaction - select_ticket_server
+[2025-05-16 10:53:52 INF] 🔍 Debug: Selected Value - Other|SA|ZombieLynx-ScorchedEarth-3X-PVPORP
+[2025-05-16 10:53:52 INF] 🔍 Debug: Parsed Category - Other
+[2025-05-16 10:53:52 INF] 🔍 Debug: Parsed Game - SA
+[2025-05-16 10:53:52 INF] 🔍 Debug: Parsed Server - ZombieLynx-ScorchedEarth-3X-PVPORP
+[2025-05-16 10:53:57 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:53:57 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:53:57 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:53:57 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:53:57 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:54:00 INF] 🎫 Creating ticket for danulsan...
+[2025-05-16 10:54:00 INF] ✅ Ticket 95 successfully saved in DB and assigned to user.
+[2025-05-16 10:54:00 INF] ✅ Ticket 95 created in DB.
+[2025-05-16 10:54:01 INF] ✅ Created channel ticket-95 (1372965322427990061)
+[2025-05-16 10:54:01 INF] ✅ Ticket 95 updated with Discord Channel ID: 1372965322427990061
+[2025-05-16 10:54:07 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:54:07 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:54:07 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:54:07 INF] 🔍 Checking for reopened tickets... Found 1
+[2025-05-16 10:54:07 INF] 🔄 Processing reopening for Ticket #95
+[2025-05-16 10:54:07 INF] ⛔ Skipping Ticket #95 — channel 'ticket-95' already exists.
+[2025-05-16 10:54:07 INF] ✅ Found 1 reopened tickets: 95
+[2025-05-16 10:54:17 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:54:17 INF] 🔍 Found 1 closed tickets.
+[2025-05-16 10:54:17 INF] 🔴 Closing Discord channel for Ticket #95.
+[2025-05-16 10:54:17 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:54:17 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:54:17 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:54:27 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:54:27 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:54:27 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:54:37 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:54:37 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:54:37 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:54:38 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:54:38 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:54:47 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:54:47 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:54:47 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:54:48 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:54:48 INF] 🔍 Found 0 closed tickets.
+[2025-05-16 10:54:57 INF] 🔍 Checking for reopened tickets...
+[2025-05-16 10:54:57 INF] 🔍 Checking for reopened tickets... Found 0
+[2025-05-16 10:54:57 INF] ⚠️ No reopened tickets found.
+[2025-05-16 10:54:58 INF] 🔍 Checking for closed tickets...
+[2025-05-16 10:54:58 INF] 🔍 Found 0 closed tickets.

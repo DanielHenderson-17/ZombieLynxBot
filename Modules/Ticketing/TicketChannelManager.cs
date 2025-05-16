@@ -81,6 +81,8 @@ public class TicketChannelManager
         }
 
         Log.Information($"✅ Created new channel {newChannel.Name}.");
+        ticket.DiscordChannelId = newChannel.Id;
+        await _dbContext.SaveChangesAsync();
 
         // ✅ Send the ticket embed
         await SendTicketEmbed(ticketId, newChannel);
