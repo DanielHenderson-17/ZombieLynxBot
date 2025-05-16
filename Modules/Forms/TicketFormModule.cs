@@ -12,6 +12,22 @@ public class TicketFormModule : InteractionModuleBase<SocketInteractionContext>
     [ComponentInteraction("open_ticket_form")]
     public async Task ShowCategorySelection()
     {
+        var discordId = Context.User.Id.ToString();
+        using var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider);
+
+        // Ensure this Discord ID is linked to a ZLGMember
+        var isLinked = dbContext.ZLGMembers.Any(m => m.DiscordId == discordId);
+
+        if (!isLinked)
+        {
+            await RespondAsync(
+                "❌ You must register an account on the [ZLG Portal](https://zlg.gg/login) to create a ticket.\n\n" +
+                "You can still browse our FAQs if you're looking for help for general or common issues.",
+                ephemeral: true);
+            return;
+        }
+
+        // Show category menu
         var selectMenu = new SelectMenuBuilder()
             .WithPlaceholder("Select a Ticket Category")
             .WithCustomId("select_ticket_category")
