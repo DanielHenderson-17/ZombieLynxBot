@@ -1,0 +1,12 @@
+.autoExclude
+Message.cs
+Ticket.cs
+UserProfile.cs
+UserTicket.cs
+ZLGMember.cs
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs

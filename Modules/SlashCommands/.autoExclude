@@ -1,0 +1,9 @@
+.autoExclude
+PingModule.cs
+TicketSetupModule.cs
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs

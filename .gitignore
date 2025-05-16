@@ -1,0 +1,20 @@
+# Ignore bot configuration files
+botconfig.json
+
+# Ignore .NET build artifacts
+bin/
+obj/
+*.pdb
+*.exe
+*.dll
+
+# Ignore user-specific Visual Studio files
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore MacOS and Linux files
+.DS_Store
+*.swp

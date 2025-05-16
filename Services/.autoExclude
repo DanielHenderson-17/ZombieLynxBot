@@ -1,0 +1,8 @@
+.autoExclude
+TicketMesageSyncService.cs
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs

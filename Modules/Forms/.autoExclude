@@ -1,0 +1,9 @@
+.autoExclude
+SuggestionFormModule.cs
+TicketFormModule.cs
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs

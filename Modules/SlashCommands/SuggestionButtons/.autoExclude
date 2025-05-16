@@ -1,0 +1,13 @@
+.autoExclude
+ASASuggestionButtonModule.cs
+ASESuggestionButtonModule.cs
+ECOSuggestionButtonModule.cs
+EmpyrionSuggestionButtonModule.cs
+MinecraftSuggestionButtonModule.cs
+RustSuggestionButtonModule.cs
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs

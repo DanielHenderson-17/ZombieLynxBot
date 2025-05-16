@@ -1,0 +1,8 @@
+.autoExclude
+transcript_template.html
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs

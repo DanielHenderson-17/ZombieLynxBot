@@ -1,0 +1,11 @@
+.autoExclude
+TicketChannelManager.cs
+TicketCreationModule.cs
+TicketHandler.cs
+TicketMessageModule.cs
+*.lck
+*.tmp
+*.log
+*.log.gz
+temp
+logs
