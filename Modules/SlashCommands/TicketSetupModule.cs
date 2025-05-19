@@ -15,6 +15,8 @@ public class TicketSetupModule : InteractionModuleBase<SocketInteractionContext>
                              "• Tickets made on behalf of others will be closed immediately without response.\n" +
                              "• Duplicate tickets from the same tribe will be closed immediately without response.\n" +
                              "• Tickets not being prioritized over gameplay will be closed due to inactivity.\n\n" +
+                             "**You must have a registered account with ZLG to create a ticket.**\n" +
+                             "If you don’t have one yet, visit [zlg.gg](https://zlg.gg/login) to register.\n\n" +
                              "**Click the button below to create a ticket:**")
             .WithColor(Color.Green)
             .WithFooter("Failure to follow these guidelines may result in ticket closure.")

@@ -81,6 +81,8 @@ public class TicketChannelManager
         }
 
         Log.Information($"✅ Created new channel {newChannel.Name}.");
+        ticket.DiscordChannelId = newChannel.Id;
+        await _dbContext.SaveChangesAsync();
 
         // ✅ Send the ticket embed
         await SendTicketEmbed(ticketId, newChannel);
@@ -132,10 +134,12 @@ public class TicketChannelManager
             })
             .WithCurrentTimestamp();
 
-        var closeButton = new ComponentBuilder()
-            .WithButton("Close Ticket", $"close_ticket_{ticket.Id}", ButtonStyle.Danger);
+        var components = new ComponentBuilder()
+            .WithButton("Close Ticket", $"close_ticket_{ticket.Id}", ButtonStyle.Danger)
+            .WithButton("📇 View Player Card", $"view_card_{ticket.Id}", ButtonStyle.Secondary);
 
-        await channel.SendMessageAsync(embed: embed.Build(), components: closeButton.Build());
+        await channel.SendMessageAsync(embed: embed.Build(), components: components.Build());
+
     }
 
     private async Task LoadMessagesToChannel(int ticketId, SocketTextChannel channel)

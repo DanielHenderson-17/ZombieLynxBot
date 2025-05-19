@@ -129,13 +129,14 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
             })
          .WithCurrentTimestamp();
 
+        // ✅ Buttons: Close + View Card
+        var buttons = new ComponentBuilder()
+            .WithButton("Close Ticket", $"close_ticket_{newTicket.Id}", ButtonStyle.Danger)
+            .WithButton("📇 View Player Card", $"view_card_{newTicket.Id}", ButtonStyle.Secondary);
 
-        // ✅ Create a button to close the ticket
-        var closeButton = new ComponentBuilder()
-            .WithButton("Close Ticket", $"close_ticket_{newTicket.Id}", ButtonStyle.Danger);
+        // ✅ Send the embed with buttons
+        await ticketChannel.SendMessageAsync(embed: embed.Build(), components: buttons.Build());
 
-        // ✅ Send the embed with the button
-        await ticketChannel.SendMessageAsync(embed: embed.Build(), components: closeButton.Build());
 
         // ✅ Send the initial ticket message after the embed
         await ticketChannel.SendMessageAsync(ticketMessage);
@@ -325,6 +326,85 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
         using var stream = new MemoryStream(fileBytes);
 
         await FollowupWithFileAsync(stream, $"ticket-{ticketId}-transcript.html", $"📜 Here's the transcript for Ticket #{ticketId}:");
+    }
+
+    [ComponentInteraction("view_card_*")]
+    public async Task HandleViewCard(string customId)
+    {
+        await DeferAsync(ephemeral: true);
+
+        string ticketIdString = customId.Replace("view_card_", "");
+        if (!int.TryParse(ticketIdString, out int ticketId))
+        {
+            await FollowupAsync("❌ Invalid ticket ID.", ephemeral: true);
+            return;
+        }
+
+        using var dbContext = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider);
+        var ticket = dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+        if (ticket == null)
+        {
+            await FollowupAsync("❌ Ticket not found.", ephemeral: true);
+            return;
+        }
+
+        var member = dbContext.ZLGMembers.FirstOrDefault(m => m.DiscordId == ticket.DiscordUserId.ToString());
+        if (member == null)
+        {
+            await FollowupAsync("❌ Player info not found.", ephemeral: true);
+            return;
+        }
+
+        var embed = new EmbedBuilder()
+            .WithAuthor(FormatName(member.DiscordName), member.DiscordImgUrl ?? "https://i.imgur.com/dnlokbX.png")
+            .WithThumbnailUrl(member.DiscordImgUrl ?? "https://i.imgur.com/dnlokbX.png")
+            .WithColor(Color.Blue)
+            .WithCurrentTimestamp();
+        embed.AddField("💰 Points", member.Points.ToString("N0"), false);
+
+        // Steam info
+        if (!string.IsNullOrWhiteSpace(member.SteamName))
+        {
+            embed.AddField("🧊 Steam", $"{member.SteamName}\n`{member.SteamId}`", false);
+        }
+
+        // Minecraft info
+        if (!string.IsNullOrWhiteSpace(member.MinecraftUsername))
+        {
+            embed.AddField("⛏️ Minecraft", $"{member.MinecraftUsername}\n`{member.MinecraftUuid}`", false);
+        }
+
+        // Epic info
+        if (!string.IsNullOrWhiteSpace(member.EpicName))
+        {
+            embed.AddField("🎮 Epic", $"{member.EpicName}\n`{member.EosId}`", false);
+        }
+
+
+
+        // TimedPermissionGroups (show top one only if multiple)
+        if (!string.IsNullOrWhiteSpace(member.TimedPermissionGroups))
+        {
+            var group = member.TimedPermissionGroups.Split(',').FirstOrDefault()?.Trim();
+            if (!string.IsNullOrWhiteSpace(group))
+            {
+                string icon = group.ToLower().Contains("vibranium") ? "🟣" :
+                              group.ToLower().Contains("diamond") ? "🔷" :
+                              group.ToLower().Contains("gold") ? "🟡" :
+                              "🔘";
+
+                embed.AddField("🛡️ Membership", $"{icon} {group}", true);
+            }
+        }
+
+        await FollowupAsync(embed: embed.Build());
+    }
+
+    private static string FormatName(string raw)
+    {
+        if (string.IsNullOrWhiteSpace(raw)) return "Unknown";
+        var name = raw.Split('#')[0];
+        return char.ToUpper(name[0]) + name.Substring(1).ToLower();
     }
 
 }
