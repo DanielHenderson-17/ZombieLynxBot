@@ -42,10 +42,11 @@ class Program
 
         _client = new DiscordSocketClient(new DiscordSocketConfig
         {
-            GatewayIntents = GatewayIntents.Guilds |
-                             GatewayIntents.GuildMessages |
-                             GatewayIntents.MessageContent |
-                             GatewayIntents.GuildMessageReactions
+            GatewayIntents = GatewayIntents.Guilds
+                   | GatewayIntents.GuildMessages
+                   | GatewayIntents.MessageContent
+                   | GatewayIntents.GuildMessageReactions
+                   | GatewayIntents.GuildMembers
         });
 
         _commands = new InteractionService(_client.Rest);

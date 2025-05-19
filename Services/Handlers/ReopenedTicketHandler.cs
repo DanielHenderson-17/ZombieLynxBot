@@ -16,7 +16,7 @@ public class ReopenedTicketHandler
 
     public async Task CheckForReopenedTickets(CancellationToken cancellationToken)
     {
-        var channelManager = new TicketChannelManager(_client);
+        var ticketReopenService = new TicketReopenService(_client);
 
         while (!cancellationToken.IsCancellationRequested)
         {
@@ -47,7 +47,7 @@ public class ReopenedTicketHandler
                         }
                     }
 
-                    await channelManager.HandleTicketReopen(ticket.Id);
+                    await ticketReopenService.HandleTicketReopen(ticket.Id);
                     Log.Information($"✅ Finished processing Ticket #{ticket.Id}");
                 }
 

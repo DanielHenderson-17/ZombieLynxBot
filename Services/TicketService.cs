@@ -115,4 +115,19 @@ public class TicketService
         Log.Information($"✅ Ticket {ticketId} marked as closed.");
         return true;
     }
+
+    public async Task<bool> MarkTicketAsClosedAsync(int ticketId)
+    {
+        var ticket = _dbContext.Tickets.FirstOrDefault(t => t.Id == ticketId);
+        if (ticket == null)
+            return false;
+
+        ticket.Status = "Closed";
+        ticket.UpdatedAt = DateTime.UtcNow;
+
+        await _dbContext.SaveChangesAsync();
+        Log.Information($"✅ [Sync] Ticket {ticketId} marked as closed in DB.");
+        return true;
+    }
+
 }

@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 public static class TicketEmbedFactory
 {
-    public static Embed BuildTicketEmbed(SocketUser user, Ticket ticket)
+    public static Embed BuildTicketEmbed(IUser user, Ticket ticket)
     {
         return new EmbedBuilder()
             .WithTitle($"🎫 Ticket #{ticket.Id} - {Capitalize(ticket.Subject)}")
@@ -29,7 +29,8 @@ public static class TicketEmbedFactory
     {
         return new ComponentBuilder()
             .WithButton("Close Ticket", $"close_ticket_{ticketId}", ButtonStyle.Danger)
-            .WithButton("📇 View Player Card", $"view_card_{ticketId}", ButtonStyle.Secondary);
+            .WithButton("📇 View Player Card", $"view_card_{ticketId}", ButtonStyle.Secondary)
+            .WithButton("Reassign Owner", $"reassign_owner_{ticketId}", ButtonStyle.Primary);
     }
 
     private static string Capitalize(string input)

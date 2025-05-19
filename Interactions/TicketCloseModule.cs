@@ -27,7 +27,22 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             return;
         }
 
+        // Create a local instance or inject TicketService (preferred)
+        var ticketService = new TicketService();
+
+        // Step 1: Forcefully commit the "Closed" status to the DB
+        bool closed = await ticketService.MarkTicketAsClosedAsync(ticketId);
+        if (!closed)
+        {
+            await RespondAsync("❌ Failed to close ticket. Ticket may not exist.", ephemeral: true);
+            return;
+        }
+
+        // Step 2: Proceed with close logic (which handles channel deletion)
         await _closeTicketListener.TryCloseTicketAsync(Context, ticketId);
+
+        // Step 3: Let user know
+        await RespondAsync("✅ Ticket has been marked as closed. This channel will be deleted shortly.", ephemeral: true);
     }
 
     [ComponentInteraction("reopen_ticket_*")]
@@ -41,8 +56,8 @@ public class TicketCloseModule : InteractionModuleBase<SocketInteractionContext>
             return;
         }
 
-        var ticketChannelManager = new TicketChannelManager(Context.Client as DiscordSocketClient);
-        await ticketChannelManager.HandleTicketReopen(ticketId);
+        var ticketReopenService = new TicketReopenService(Context.Client as DiscordSocketClient);
+        await ticketReopenService.HandleTicketReopen(ticketId);
 
         if (Context.Interaction is SocketMessageComponent component)
         {

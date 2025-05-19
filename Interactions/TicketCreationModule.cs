@@ -83,37 +83,11 @@ public class TicketCreationModule : InteractionModuleBase<SocketInteractionConte
 
         // ✅ Update the Ticket in Database
         await _ticketService.UpdateTicketWithChannelId(newTicket.Id, ticketChannel.Id);
-
-
         // ✅ Send a message in the new channel
-        var embed = new EmbedBuilder()
-         .WithTitle($"🎫 Ticket #{newTicket.Id} - {char.ToUpper(newTicket.Subject[0])}{newTicket.Subject.Substring(1)}")
-         .WithAuthor(Context.User.Username, Context.User.GetAvatarUrl())
-         .WithDescription("--------------------------------------\n")
-         .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
-         .AddField("📂 **Category**", $"{newTicket.Category}", inline: false)
-         .AddField("🎮 **Game**", $"{newTicket.Game}", inline: false)
-         .AddField("🗺️ **Server**", $"{newTicket.Server}", inline: false)
-         .AddField("\u200B", "\u200B", inline: false)
-         .AddField("📜 **Description**", $"```{char.ToUpper(newTicket.Description[0])}{newTicket.Description.Substring(1)}```", inline: false)
-         .WithColor(Color.Green)
-         .WithFooter(footer =>
-            {
-                footer.Text = $"Ticket created by {Context.User.Username}";
-                footer.IconUrl = "https://i.imgur.com/dnlokbX.png";
-            })
-         .WithCurrentTimestamp();
+        var embed = TicketEmbedFactory.BuildTicketEmbed(Context.User, newTicket);
+        var buttons = TicketEmbedFactory.BuildTicketButtons(newTicket.Id);
 
-        // ✅ Buttons: Close + View Card
-        var buttons = new ComponentBuilder()
-            .WithButton("Close Ticket", $"close_ticket_{newTicket.Id}", ButtonStyle.Danger)
-            .WithButton("📇 View Player Card", $"view_card_{newTicket.Id}", ButtonStyle.Secondary);
-
-        // ✅ Send the embed with buttons
-        await ticketChannel.SendMessageAsync(embed: embed.Build(), components: buttons.Build());
-
-
-        // ✅ Send the initial ticket message after the embed
+        await ticketChannel.SendMessageAsync(embed: embed, components: buttons.Build());
         await ticketChannel.SendMessageAsync(ticketMessage);
 
 

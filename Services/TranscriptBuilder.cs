@@ -31,12 +31,12 @@ public static class TranscriptBuilder
             Console.WriteLine($"user={user} | avatarUrl={avatarUrl}");
 
             messagesHtml.Append($@"
-<div class='message'>
-  <img src='{avatarUrl}' alt='avatar' width='40' height='40' style='border-radius: 50%; display: inline-block;' />
-  <div class='username'>{user}</div>
-  <div class='timestamp'>{timestamp}</div>
-  <div class='content'>{content}</div>
-</div>");
+            <div class='message'>
+              <img src='{avatarUrl}' alt='avatar' width='40' height='40' style='border-radius: 50%; display: inline-block;' />
+              <div class='username'>{user}</div>
+              <div class='timestamp'>{timestamp}</div>
+              <div class='content'>{content}</div>
+            </div>");
         }
 
         var finalHtml = htmlTemplate
