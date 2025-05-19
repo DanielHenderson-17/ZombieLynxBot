@@ -91,7 +91,7 @@ public class TicketChannelManager
         var transcriptFile = await GenerateTranscript(ticketId);
         if (transcriptFile == null)
         {
-            await newChannel.SendMessageAsync("❌ Failed to generate the transcript. Contact an admin.");
+            await newChannel.SendMessageAsync("Ticket Opened from Website. No transcript available.");
             return;
         }
 
