@@ -5,9 +5,11 @@ public static class TicketEmbedFactory
 {
     public static Embed BuildTicketEmbed(IUser user, Ticket ticket)
     {
+        var formattedUsername = UserNameFormatter.FormatNameUtils(user.Username);
+
         return new EmbedBuilder()
             .WithTitle($"🎫 Ticket #{ticket.Id} - {Capitalize(ticket.Subject)}")
-            .WithAuthor(user.Username, user.GetAvatarUrl())
+            .WithAuthor(formattedUsername, user.GetAvatarUrl())
             .WithDescription("--------------------------------------\n")
             .WithThumbnailUrl("https://i.imgur.com/dnlokbX.png")
             .AddField("📂 **Category**", ticket.Category, inline: false)
@@ -18,12 +20,13 @@ public static class TicketEmbedFactory
             .WithColor(Color.Green)
             .WithFooter(footer =>
             {
-                footer.Text = $"Ticket created by {user.Username}";
+                footer.Text = $"Ticket created by {formattedUsername}";
                 footer.IconUrl = "https://i.imgur.com/dnlokbX.png";
             })
             .WithCurrentTimestamp()
             .Build();
     }
+
 
     public static ComponentBuilder BuildTicketButtons(int ticketId)
     {

@@ -116,7 +116,20 @@ namespace ZombieLynxBot.Interactions
                 return;
             }
 
-            var originalMessage = await TicketEmbedUtils.FindTicketEmbedMessageAsync(ticketChannel);
+            var foundMessage = await TicketEmbedUtils.FindTicketEmbedMessageAsync(ticketChannel);
+            if (foundMessage == null)
+            {
+                await FollowupAsync("❌ Could not find the original ticket embed.", ephemeral: true);
+                return;
+            }
+
+            var originalMessage = await ticketChannel.GetMessageAsync(foundMessage.Id) as IUserMessage;
+            if (originalMessage == null)
+            {
+                await FollowupAsync("❌ The embed message may have been deleted.", ephemeral: true);
+                return;
+            }
+
             if (originalMessage == null)
             {
                 await FollowupAsync("❌ Could not find the original ticket embed.", ephemeral: true);
@@ -133,15 +146,15 @@ namespace ZombieLynxBot.Interactions
             Console.WriteLine($"Resolved avatar: {avatarUrl}");
 
 
+            var formattedUsername = UserNameFormatter.FormatNameUtils(guildUser.Username);
             var updatedEmbed = new EmbedBuilder()
                 .WithTitle(originalEmbed.Title)
                 .WithDescription(originalEmbed.Description)
                 .WithThumbnailUrl(originalEmbed.Thumbnail?.Url)
                 .WithColor(originalEmbed.Color ?? Color.DarkGrey)
-                .WithFooter($"{originalEmbed.Footer?.Text} (updated)", originalEmbed.Footer?.IconUrl)
-                .WithTimestamp(originalEmbed.Timestamp ?? DateTimeOffset.UtcNow)
-                .WithAuthor(guildUser.Username, avatarUrl);
-
+                .WithFooter($"Ticket reassigned to {formattedUsername}", avatarUrl)
+                .WithTimestamp(DateTimeOffset.Now)
+                .WithAuthor(formattedUsername, avatarUrl);
 
             foreach (var field in originalEmbed.Fields)
             {
@@ -154,8 +167,52 @@ namespace ZombieLynxBot.Interactions
             Console.WriteLine($"Title: {updatedEmbed.Title}");
             Console.WriteLine($"Fields: {updatedEmbed.Fields.Count}");
 
-            await originalMessage.ModifyAsync(m => m.Embed = updatedEmbed.Build());
+            var builtEmbed = updatedEmbed.Build();
 
+            try
+            {
+                await originalMessage.ModifyAsync(m => m.Embed = builtEmbed);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Failed to update embed: {ex.Message}");
+                await FollowupAsync("❌ Failed to update the ticket embed. Check bot permissions and embed content.", ephemeral: true);
+                return;
+            }
+
+
+            using (var db = new TicketDbContext(Program.Config.TicketsDb.ConnectionString, Program.Config.TicketsDb.Provider))
+            {
+                var ticket = db.Tickets.FirstOrDefault(t => t.Id == ticketId);
+                if (ticket == null)
+                {
+                    await FollowupAsync("❌ Ticket not found in the database.", ephemeral: true);
+                    return;
+                }
+
+                var zlgMember = db.ZLGMembers.FirstOrDefault(z => z.DiscordId == newOwnerId.ToString());
+                if (zlgMember == null)
+                {
+                    await FollowupAsync("❌ Selected user is not a ZLGMember.", ephemeral: true);
+                    return;
+                }
+
+                ticket.DiscordUserId = newOwnerId;
+                ticket.UserProfileId = zlgMember.UserProfileId;
+
+                var userTickets = db.UserTickets.Where(ut => ut.TicketId == ticket.Id).ToList();
+                foreach (var ut in userTickets)
+                    db.UserTickets.Remove(ut);
+
+                db.UserTickets.Add(new UserTicket
+                {
+                    TicketId = ticket.Id,
+                    UserProfileId = zlgMember.UserProfileId,
+                    AssignedAt = DateTime.UtcNow
+                });
+
+                db.SaveChanges();
+            }
 
             await FollowupAsync($"✅ Ticket reassigned to {guildUser.Username}. Embed updated.", ephemeral: true);
         }
