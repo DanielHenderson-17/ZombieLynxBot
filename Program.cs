@@ -42,10 +42,11 @@ class Program
 
         _client = new DiscordSocketClient(new DiscordSocketConfig
         {
-            GatewayIntents = GatewayIntents.Guilds |
-                             GatewayIntents.GuildMessages |
-                             GatewayIntents.MessageContent |
-                             GatewayIntents.GuildMessageReactions
+            GatewayIntents = GatewayIntents.Guilds
+                   | GatewayIntents.GuildMessages
+                   | GatewayIntents.MessageContent
+                   | GatewayIntents.GuildMessageReactions
+                   | GatewayIntents.GuildMembers
         });
 
         _commands = new InteractionService(_client.Rest);
@@ -54,6 +55,11 @@ class Program
             .AddSingleton(_client)
             .AddSingleton(_commands)
             .AddSingleton(_config)
+
+            // Add these:
+            .AddSingleton<TicketService>()
+            .AddSingleton<CloseTicketListener>()
+            .AddSingleton<UserCardService>()
             .AddSingleton<SuggestionHandler>()
             .AddSingleton<SuggestionExpirationService>()
             .AddSingleton<TimeoutMonitorService>()
@@ -75,7 +81,7 @@ class Program
 
         _client.Ready += RegisterCommandsAsync;
 
-        new TicketMessageModule(_client);
+        new TicketMessageListener(_client);
 
         new TicketMessageSyncService(_client);
 
@@ -115,7 +121,7 @@ class Program
         {
             Log.Information($"❌ Database connection failed: {ex.Message}");
         }
-        new TicketMessageModule(_client);
+        new TicketMessageListener(_client);
         var expirationService = _services.GetRequiredService<SuggestionExpirationService>();
         _ = Task.Run(() => expirationService.StartAsync(CancellationToken.None));
     }
