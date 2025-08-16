@@ -1,0 +1,850 @@
+[2025-06-27 14:38:50 INF] 🟢 Bot is starting...
+[2025-06-27 14:38:50 INF] 14:38:50 Discord     Discord.Net v3.13.1 (API v10)
+[2025-06-27 14:38:50 INF] 14:38:50 Gateway     Connecting
+[2025-06-27 14:38:50 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:38:50 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:38:51 INF] 14:38:51 Gateway     Connected
+[2025-06-27 14:38:51 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:38:51 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:38:51 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:38:51 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:38:51 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:38:51 INF] ✅ Logged in as Lynx Bot
+[2025-06-27 14:38:51 INF] ✅ Successfully connected to PostgreSQL database.
+[2025-06-27 14:38:51 INF] 🔍 Checking for expired suggestions...
+[2025-06-27 14:38:52 INF] ✅ Commands and interactions loaded.
+[2025-06-27 14:38:52 INF] ✅ Slash commands registered.
+[2025-06-27 14:38:52 INF] 14:38:52 Gateway     Ready
+[2025-06-27 14:38:56 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:01 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:39:01 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:39:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:39:01 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:39:01 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:39:01 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:39:01 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:06 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:11 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:39:11 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:39:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:39:11 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:39:11 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:39:11 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:39:11 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:16 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:21 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:39:21 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:39:21 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:39:21 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:39:21 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:39:21 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:39:21 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:26 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:28 INF] 📝 Logging new message in Ticket #186 from korvette88
+[2025-06-27 14:39:28 INF] 🖼️ Extracted 0 images: 
+[2025-06-27 14:39:28 INF] 📝 Saving message: Content='ok that worked. Thank you', Images=
+[2025-06-27 14:39:28 INF] ✅ Message logged successfully for Ticket #186
+[2025-06-27 14:39:28 INF] 📝 Logging new message in Ticket #186 from korvette88
+[2025-06-27 14:39:31 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:39:31 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:39:31 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:39:31 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:39:31 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:39:31 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:39:31 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:36 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:41 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:39:41 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:39:41 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:39:41 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:39:41 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:39:41 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:39:41 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:46 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:51 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:39:51 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:39:51 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:39:51 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:39:51 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:39:51 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:39:51 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:39:52 INF] 📝 Logging new message in Ticket #186 from danulsan
+[2025-06-27 14:39:52 INF] 🖼️ Extracted 0 images: 
+[2025-06-27 14:39:52 INF] 📝 Saving message: Content='@korvette88', Images=
+[2025-06-27 14:39:52 INF] ✅ Message logged successfully for Ticket #186
+[2025-06-27 14:39:52 INF] 📝 Logging new message in Ticket #186 from danulsan
+[2025-06-27 14:39:56 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:01 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:40:01 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:40:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:40:01 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:40:01 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:40:01 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:40:01 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:02 INF] 📝 Logging new message in Ticket #186 from danulsan
+[2025-06-27 14:40:02 INF] 🖼️ Extracted 0 images: 
+[2025-06-27 14:40:02 INF] 📝 Saving message: Content='be sure to link your steam for ark:se rewards', Images=
+[2025-06-27 14:40:02 INF] ✅ Message logged successfully for Ticket #186
+[2025-06-27 14:40:02 INF] 📝 Logging new message in Ticket #186 from danulsan
+[2025-06-27 14:40:06 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:11 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:40:11 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:40:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:40:11 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:40:11 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:40:11 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:40:11 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:16 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:21 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:40:21 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:40:21 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:40:21 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:40:21 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:40:21 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:40:21 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:26 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:31 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:40:31 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:40:31 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:40:31 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:40:31 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:40:31 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:40:31 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:36 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:41 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:40:41 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:40:41 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:40:41 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:40:41 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:40:41 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:40:41 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:46 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:51 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:40:51 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:40:51 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:40:51 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:40:51 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:40:51 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:40:51 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:40:56 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:01 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:41:01 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:41:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:41:01 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:41:01 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:41:01 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:41:01 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:06 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:11 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:41:11 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:41:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:41:11 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:41:11 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:41:11 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:41:11 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:16 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:21 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:41:21 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:41:21 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:41:21 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:41:21 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:41:21 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:41:21 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:26 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:31 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:41:31 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:41:31 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:41:31 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:41:31 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:41:31 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:41:31 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:36 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:41 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:41:41 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:41:41 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:41:41 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:41:41 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:41:41 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:41:41 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:46 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:51 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:41:51 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:41:51 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:41:51 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:41:51 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:41:51 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:41:51 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:41:56 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:01 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:42:01 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:42:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:42:01 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:42:01 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:42:01 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:42:01 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:06 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:11 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:42:11 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:42:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:42:11 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:42:11 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:42:11 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:42:11 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:16 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:21 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:42:21 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:42:21 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:42:21 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:42:21 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:42:21 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:42:21 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:26 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:31 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:42:31 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:42:31 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:42:31 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:42:31 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:42:31 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:42:31 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:33 INF] 📝 Logging new message in Ticket #186 from korvette88
+[2025-06-27 14:42:33 INF] 🖼️ Extracted 0 images: 
+[2025-06-27 14:42:33 INF] 📝 Saving message: Content='Looks like I have to make a new survivor. I'll link it. Thanks', Images=
+[2025-06-27 14:42:33 INF] ✅ Message logged successfully for Ticket #186
+[2025-06-27 14:42:33 INF] 📝 Logging new message in Ticket #186 from korvette88
+[2025-06-27 14:42:36 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:41 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:42:41 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:42:41 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:42:41 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:42:41 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:42:41 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:42:41 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:46 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:51 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:42:51 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:42:51 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:42:51 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:42:51 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:42:51 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:42:51 INF] 📝 Logging new message in Ticket #186 from danulsan
+[2025-06-27 14:42:51 INF] 🖼️ Extracted 0 images: 
+[2025-06-27 14:42:51 INF] 📝 Saving message: Content='Cool. Welcome back and thanks. Take care', Images=
+[2025-06-27 14:42:51 INF] ✅ Message logged successfully for Ticket #186
+[2025-06-27 14:42:51 INF] 📝 Logging new message in Ticket #186 from danulsan
+[2025-06-27 14:42:51 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:42:56 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:01 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:43:01 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:43:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:43:01 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:43:01 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:43:01 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:43:01 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:06 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:11 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:43:11 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:43:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:43:11 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:43:11 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:43:11 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:43:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:21 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:43:21 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:43:21 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:43:21 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:43:21 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:43:21 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:43:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:31 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:43:31 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:43:31 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:43:31 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:43:31 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:43:31 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:43:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:41 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:43:41 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:43:41 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:43:41 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:43:41 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:43:41 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:43:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:51 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:43:51 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:43:51 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:43:51 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:43:51 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:43:51 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:43:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:43:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:01 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:44:01 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:44:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:44:01 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:44:01 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:44:01 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:44:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:11 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:44:11 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:44:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:44:11 INF] 🔍 Found 1 reopened tickets
+[2025-06-27 14:44:11 INF] 🔄 Processing reopening for Ticket #186
+[2025-06-27 14:44:11 INF] ⛔ Skipping Ticket #186 — channel 'ticket-186' already exists.
+[2025-06-27 14:44:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:12 INF] ✅ [Sync] Ticket 186 marked as closed in DB.
+[2025-06-27 14:44:12 INF] 🔍 Closing Ticket #186
+[2025-06-27 14:44:12 INF] ✅ Ticket 186 marked as closed.
+[2025-06-27 14:44:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:18 INF] 🔍 Checking for expired suggestions...
+[2025-06-27 14:44:21 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:44:21 INF] 🔍 Found 1 closed tickets.
+[2025-06-27 14:44:21 INF] 🔴 Closing Discord channel for Ticket #186.
+[2025-06-27 14:44:21 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:44:21 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:44:21 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:44:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:31 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:44:31 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:44:31 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:44:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:41 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:44:41 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:44:41 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:44:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:44:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:44:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:51 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:44:51 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:44:51 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:44:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:44:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:44:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:44:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:01 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:45:01 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:45:01 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:45:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:02 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:45:02 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:45:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:11 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:45:11 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:45:11 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:45:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:12 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:45:12 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:45:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:45:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:45:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:45:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:22 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:45:22 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:45:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:45:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:45:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:45:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:32 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:45:32 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:45:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:45:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:45:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:45:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:45:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:45:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:45:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:45:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:45:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:45:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:45:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:45:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:46:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:46:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:46:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:02 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:46:02 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:46:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:46:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:46:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:46:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:12 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:46:12 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:46:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:46:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:46:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:46:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:22 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:46:22 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:46:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:46:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:46:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:46:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:32 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:46:32 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:46:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:46:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:46:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:46:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:46:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:46:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:46:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:46:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:46:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:46:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:46:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:46:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:47:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:47:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:47:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:02 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:47:02 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:47:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:47:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:47:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:47:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:12 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:47:12 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:47:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:47:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:47:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:47:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:22 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:47:22 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:47:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:47:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:47:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:47:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:32 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:47:32 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:47:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:47:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:47:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:47:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:47:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:47:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:47:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:47:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:47:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:47:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:47:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:47:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:48:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:48:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:48:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:02 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:48:02 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:48:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:48:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:48:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:48:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:12 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:48:12 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:48:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:48:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:48:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:48:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:22 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:48:22 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:48:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:48:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:48:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:48:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:32 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:48:32 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:48:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:48:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:48:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:48:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:48:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:48:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:48:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:48:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:48:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:48:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:48:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:48:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:49:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:49:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:49:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:02 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:49:02 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:49:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:49:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:49:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:49:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:12 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:49:12 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:49:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:49:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:49:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:49:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:22 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:49:22 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:49:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:49:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:49:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:49:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:32 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:49:32 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:49:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:41 INF] 🔍 Checking for expired suggestions...
+[2025-06-27 14:49:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:49:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:49:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:49:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:49:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:49:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:49:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:49:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:49:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:49:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:49:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:49:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:50:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:50:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:50:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:02 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:50:02 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:50:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:50:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:50:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:50:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:12 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:50:12 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:50:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:50:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:50:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:50:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:22 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:50:22 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:50:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:50:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:50:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:50:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:32 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:50:32 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:50:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:50:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:50:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:50:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:42 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:50:42 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:50:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:50:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:50:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:50:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:50:52 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:50:52 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:50:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:51:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:51:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:51:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:03 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:51:03 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:51:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:51:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:51:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:51:12 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:13 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:51:13 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:51:17 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:51:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:51:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:51:22 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:23 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:51:23 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:51:27 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:51:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:51:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:51:32 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:33 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:51:33 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:51:37 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:51:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:51:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:51:42 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:43 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:51:43 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:51:47 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:51:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:51:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:51:52 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:51:53 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:51:53 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:51:57 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:52:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:52:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:52:02 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:03 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:52:03 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:52:07 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:52:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:52:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:52:13 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:13 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:52:13 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:52:18 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:52:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:52:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:52:23 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:23 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:52:23 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:52:28 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:52:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:52:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:52:33 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:33 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:52:33 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:52:38 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:52:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:52:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:52:43 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:43 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:52:43 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:52:48 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:52:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:52:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:52:53 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:52:53 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:52:53 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:52:58 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:53:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:53:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:53:03 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:03 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:53:03 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:53:08 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:53:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:53:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:53:13 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:13 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:53:13 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:53:18 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:53:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:53:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:53:23 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:53:23 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:23 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:53:28 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:53:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:53:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:53:33 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:33 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:53:33 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:53:38 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:53:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:53:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:53:43 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:43 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:53:43 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:53:48 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:53:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:53:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:53:53 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:53:53 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:53:53 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:53:58 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:54:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:54:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:54:03 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:03 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:54:03 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:54:08 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:54:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:54:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:54:13 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:13 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:54:13 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:54:18 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:54:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:54:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:54:23 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:23 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:54:23 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:54:28 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:54:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:54:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:54:33 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:33 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:54:33 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:54:38 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:54:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:54:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:54:43 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:43 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:54:43 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:54:48 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:54:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:54:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:54:53 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:54:53 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:54:53 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:54:58 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:55:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:55:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:55:03 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:55:03 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:04 INF] 🔍 Checking for expired suggestions...
+[2025-06-27 14:55:04 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:55:08 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:55:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:55:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:55:13 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:14 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:55:14 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:55:18 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:55:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:55:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:55:23 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:24 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:55:24 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:55:28 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:55:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:55:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:55:33 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:34 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:55:34 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:55:38 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:55:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:55:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:55:43 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:44 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:55:44 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:55:48 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:55:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:55:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:55:53 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:55:54 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:55:54 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:55:58 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:56:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:56:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:56:03 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:04 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:56:04 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:56:08 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:56:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:56:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:56:13 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:14 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:56:14 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:56:18 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:22 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:56:22 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:56:22 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:56:23 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:24 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:56:24 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:56:28 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:32 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:56:32 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:56:32 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:56:33 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:34 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:56:34 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:56:38 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:42 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:56:42 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:56:42 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:56:43 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:44 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:56:44 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:56:48 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:52 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:56:52 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:56:52 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:56:53 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:56:54 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:56:54 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:56:58 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:57:02 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:57:02 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:57:02 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:57:03 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:57:04 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:57:04 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:57:08 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:57:12 INF] 🔍 Checking for reopened tickets...
+[2025-06-27 14:57:12 INF] 🔍 Found 0 reopened tickets
+[2025-06-27 14:57:12 INF] ⚠️ No reopened tickets found.
+[2025-06-27 14:57:13 INF] ⚠️ Ticket channel 'ticket-131' not found!
+[2025-06-27 14:57:14 INF] 🔍 Checking for closed tickets...
+[2025-06-27 14:57:14 INF] 🔍 Found 0 closed tickets.
+[2025-06-27 14:57:18 INF] ⚠️ Ticket channel 'ticket-131' not found!
