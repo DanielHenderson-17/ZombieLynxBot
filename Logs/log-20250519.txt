@@ -11820,3 +11820,18 @@ System.InvalidOperationException: Failed to create "TicketCloseModule", dependen
 [2025-05-19 20:16:55 INF] 🔍 Checking for reopened tickets...
 [2025-05-19 20:16:55 INF] 🔍 Found 0 reopened tickets
 [2025-05-19 20:16:55 INF] ⚠️ No reopened tickets found.
+[2025-05-19 20:23:06 INF] 🟢 Bot is starting...
+[2025-05-19 20:23:06 INF] 20:23:06 Discord     Discord.Net v3.13.1 (API v10)
+[2025-05-19 20:23:06 INF] 20:23:06 Gateway     Connecting
+[2025-05-19 20:23:06 INF] 🔍 Checking for reopened tickets...
+[2025-05-19 20:23:06 INF] 🔍 Checking for closed tickets...
+[2025-05-19 20:23:07 INF] 🔍 Found 0 reopened tickets
+[2025-05-19 20:23:07 INF] 🔍 Found 0 closed tickets.
+[2025-05-19 20:23:07 INF] ⚠️ No reopened tickets found.
+[2025-05-19 20:23:07 INF] 20:23:07 Gateway     Connected
+[2025-05-19 20:23:08 INF] ✅ Logged in as Lynx Bot
+[2025-05-19 20:23:08 INF] ✅ Successfully connected to PostgreSQL database.
+[2025-05-19 20:23:08 INF] 🔍 Checking for expired suggestions...
+[2025-05-19 20:23:08 INF] ✅ Commands and interactions loaded.
+[2025-05-19 20:23:08 INF] ✅ Slash commands registered.
+[2025-05-19 20:23:08 INF] 20:23:08 Gateway     Ready
